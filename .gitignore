@@ -73,3 +73,4 @@ docs/build/
 
 # Ignore files that shouldn't be committed (but are tracked)
 specs
+.doc
