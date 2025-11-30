@@ -45,14 +45,19 @@ Feature 目录结构标准定义。
 
 - **核心内容：** api、manager、component、block、page 等目录的职责和组织方式。
 
-### 6. 包管理器与脚本 (Package Manager & Scripts)
+### 6. 构建工具与包管理器 (Build Tool & Package Manager)
 
 **统一开发环境与命令执行标准。**
 
-- **包管理器：** 必须使用 `bun`。禁止使用 `npm`, `yarn`, `pnpm`。
+- **核心工具：** 项目构建和包管理统一使用 `bun`。禁止使用 `npm`, `yarn`, `pnpm`。
 - **脚本执行：** 优先使用 `package.json` 中定义的脚本。
+  - **参考 `package.json`：** 在执行任何命令（构建、测试、Lint）前，**必须先阅读 `package.json` 的 `scripts` 部分**以获取正确的命令。
   - 例如：运行 `bun run lint` 而不是直接运行 `eslint`。
-  - 例如：运行 `bun run type-check` 而不是直接运行 `tsc`。
+- **测试规范：**
+  - **测试命令：** 前端测试统一使用 `bun test`。
+  - **指定文件：** 运行测试时，**必须指定具体的测试文件**，禁止无故运行全量测试。
+    - ✅ 正确：`bun test src/path/to/test.ts`
+    - ❌ 错误：`bun test` (除非明确需要运行所有测试)
 
 ### 7. UI 组件使用规范 (UI Component Usage)
 
