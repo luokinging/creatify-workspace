@@ -58,6 +58,10 @@ ViewController → Manager → Service
 ### 基本结构
 
 ```typescript
+import { createStore } from "zustand/vanilla";
+import { combine } from "zustand/middleware";
+import { immer } from "zustand/middleware/immer";
+
 // 定义初始状态
 const initialState = {
   isLoading: false,
@@ -65,29 +69,35 @@ const initialState = {
   error: null,
 };
 
+// ✅ 定义 State 类型
+type MyViewControllerState = typeof initialState;
+
 class MyViewController {
+  // ❌ 禁止在 Store 中定义 actions
+  // ✅ Store 只负责存储状态
+  // ✅ 统一使用 immer + combine，initialState 在外部定义
   private readonly store = createStore(
-    immer(combine(initialState, () => ({}))),
+    immer(combine(initialState, () => ({})))
   );
 
-  // 组合其他 Managers
-  private readonly dataManager = new DataManager();
-  private readonly disposerManager = new DisposerManager();
+  // ...
 
-  // 通过构造函数传入依赖（依赖注入）
-  constructor(
-    private readonly userService: IUserService,
-    private readonly dataManager: DataManager,
-  ) {}
-
-  // 获取状态
+  // ✅ 通过 getter 获取状态
   get state() {
     return this.store.getState();
   }
 
-  // 更新状态
-  setState(updater: (state: typeof initialState) => void) {
+  // ✅ 通过 setState 更新状态
+  setState(updater: (state: MyViewControllerState) => void) {
     this.store.setState(updater);
+  }
+
+  // ✅ 业务逻辑定义为类方法
+  handleUserAction() {
+    this.setState((state) => {
+      state.isLoading = true;
+    });
+    // ...
   }
 
   // 启动生命周期
@@ -98,7 +108,7 @@ class MyViewController {
     this.disposerManager.addDisposeFn(
       this.dataManager.store.subscribe(() => {
         this.handleDataChange();
-      }),
+      })
     );
   }
 
@@ -124,13 +134,13 @@ function MyComponent(props: MyComponentProps) {
   const dataManager = useState(() => new DataManager());
 
   // 创建 ViewController 实例
-  const [vc] = useState(() =>
-    new MyViewController(userService, dataManager)
-  );
+  const [vc] = useState(() => new MyViewController(userService, dataManager));
 
   // 启动和清理
   useEffect(() => {
-    vc.bootstrap({ /* options */ });
+    vc.bootstrap({
+      /* options */
+    });
 
     return () => {
       vc.dispose();
@@ -144,20 +154,17 @@ function MyComponent(props: MyComponentProps) {
   return (
     <div>
       {state.isLoading && <Loading />}
-      <Button onClick={() => vc.handleUserAction()}>
-        Action
-      </Button>
+      <Button onClick={() => vc.handleUserAction()}>Action</Button>
     </div>
   );
 }
 ```
 
 ### 使用 CombinedStore
-* 复杂状态管理请使用combinedStore
-* 在视图中，由于要在状态变化的时候去触发视图更新，在使用通过构造函数传入依赖的写法中，需要做state的计算属性的时候，在视图中使用 useCombinedStore，可以很好的保证视图更新的情况下让逻辑简单
-* useCombinedStore 的 第二个参数要传入一个无参数的选择器，直接取数据
 
-
+- 复杂状态管理请使用 combinedStore
+- 在视图中，由于要在状态变化的时候去触发视图更新，在使用通过构造函数传入依赖的写法中，需要做 state 的计算属性的时候，在视图中使用 useCombinedStore，可以很好的保证视图更新的情况下让逻辑简单
+- useCombinedStore 的 第二个参数要传入一个无参数的选择器，直接取数据
 
 ```typescript
 class ComplexViewController {
@@ -178,8 +185,8 @@ class ComplexViewController {
     ] as const);
   }
 
-  get dataStoreState(){
-    return this.dataStore.getState()
+  get dataStoreState() {
+    return this.dataStore.getState();
   }
 
   // 计算属性：直接从原始 stores 获取数据，而不是从 combinedStore
@@ -190,6 +197,7 @@ class ComplexViewController {
   }
 }
 ```
+
 视图中使用
 
 ```jsx
@@ -208,9 +216,23 @@ function Component(...){
 ### 基本结构
 
 ```typescript
+import { createStore } from "zustand/vanilla";
+import { combine } from "zustand/middleware";
+import { immer } from "zustand/middleware/immer";
+
+// ✅ 定义初始状态
+const initialState = {
+  // ... state properties
+};
+
+// ✅ 定义 State 类型
+type MyManagerState = typeof initialState;
+
 class MyManager {
+  // ❌ 禁止在 Store 中定义 actions
+  // ✅ 统一使用 immer + combine
   private readonly store = createStore(
-    immer(combine(initialState, () => ({}))),
+    immer(combine(initialState, () => ({})))
   );
 
   private readonly disposerManager = new DisposerManager();
@@ -221,8 +243,8 @@ class MyManager {
     return this.store.getState();
   }
 
-  setState(updater: typeof initialState){
-    this.setState(updater)
+  setState(updater: (state: MyManagerState) => void) {
+    this.store.setState(updater);
   }
 
   async bootstrap() {
@@ -301,9 +323,7 @@ function MyBootstrap({ children }: { children: ReactNode }) {
   const userService = useServices(IUserService);
   const dataService = useServices(IDataService);
 
-  const [vc] = useState(() =>
-    new MyViewController(userService, dataService)
-  );
+  const [vc] = useState(() => new MyViewController(userService, dataService));
 
   return (
     <ViewControllerContext.Provider value={vc}>
@@ -330,3 +350,4 @@ function MyPage() {
 4. **遵循依赖关系**：不要违反依赖关系规则，所有依赖都要通过构造函数传入，在 `new` 的时候传递实例（不需要自动注入或 Container 等复杂概念）
 5. **及时清理资源**：在 `dispose` 方法中清理所有订阅和资源
 6. **使用 DisposerManager**：统一管理所有需要清理的资源
+7. **避免使用 Custom Hook 聚合逻辑**：Custom Hook 应仅用于复用纯 UI 逻辑（如 `useClickOutside`）。业务逻辑、状态聚合、数据请求等必须在 Manager 或 ViewController 中实现，严禁使用 `useUserLogic` 这种 Hook 来替代 Manager。
