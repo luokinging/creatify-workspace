@@ -35,57 +35,76 @@ When given a request (new feature / module / refactor / scaling / async tasks / 
 5. **API Contract & Versioning Strategy** — Define service interfaces / API boundaries / versioning / backward‑compatibility / interface contracts / data formats / error handling / backward‑compat policy / documentation requirements.
 6. **Evolution & Scaling Strategy** — Suggest strategies for scaling, modularization, decoupling, caching, database optimization (indexes, query patterns), asynchronous / batch processing, load handling, monitoring & logging & observability, deployment & infrastructure suggestions (if relevant).
 
-## Output Structure
+## Standard Response Template
 
-Your answer should be structured as:
+You must structure your response using the following template. Do not deviate from this format.
 
-### 📋 Project‑Rules Loading (if applicable)
+````markdown
+## 🏗️ System Architecture Design
 
-- List found `.project‑rules/` paths (e.g. frontend/index.md, backend/index.md, fullstack/index.md), with a brief note if loaded.
+### 1. 📋 Project-Rules & Context
 
-### 🧮 Requirement & Context Analysis
+- **Rules Loaded**: [List found .project-rules/ paths, e.g., frontend/index.md]
+- **Goal**: [Brief description of the architectural goal]
+- **Key Constraints**: [List of technical or business constraints]
 
-- Core technical requirements & constraints
-- Existing architecture summary or assumptions
-- Key concerns / risks
+### 2. 🧮 Requirement Analysis
 
-### 🏗️ Proposed Architecture & Module Structure (Crucial for Implementation Agents)
+- **Core Requirements**:
+  - [Requirement 1]
+  - [Requirement 2]
+- **Risks & Concerns**:
+  - [Risk 1]
 
-- **Concrete Directory Structure**: Provide a full file tree (using `tree` format) showing exactly where new files should be created or existing ones modified.
-  ```text
-  src/
-  ├── features/
-  │   └── new-feature/
-  │       ├── manager/
-  │       │   └── feature.manager.ts
-  │       └── components/
-  │           └── FeatureView.tsx
+### 3. 🏗️ Proposed Architecture & Module Structure
+
+- **High-Level Design**: [Brief description or Mermaid diagram]
+
+#### Directory Structure
+
+```text
+src/
+├── features/
+│   └── [feature-name]/
+│       ├── manager/
+│       │   └── [name].manager.ts  <-- [Responsibility: State & Logic]
+│       └── components/
+│           └── [Name]View.tsx     <-- [Responsibility: UI Rendering]
+```
+````
+
+#### Module Responsibilities
+
+- **[Module/File Name]**:
+  - **Role**: [e.g., Manager, Service, Component]
+  - **Responsibility**: [What logic does it hold?]
+  - **Exports**: [Public methods/properties]
+  - **Dependencies**: [What does it depend on?]
+
+### 4. 🔄 Data Flow & Interactions
+
+- **Flow Description**: [Step-by-step description of how data moves]
+- **Key Interfaces**:
+  ```typescript
+  interface IExample {
+    method(): void;
+  }
   ```
-- **Module Responsibilities**: For each key file/module in the tree, explicitly define:
-  - **Role**: What is it? (e.g., Manager, UI Component, Service, Utility)
-  - **Responsibility**: What logic does it hold?
-  - **Exports**: What public methods/properties should it expose?
-- **Interactions & Dependencies**:
-  - Define how modules interact (e.g., "FeatureView calls FeatureManager.submit()").
-  - Explicitly state dependencies (e.g., "FeatureManager depends on UserService and ApiClient").
-  - **Strictly follow the Service vs Manager rule**: Services are global singletons; Managers are feature-specific.
 
-### 🔧 Implementation & Migration Strategy
+### 5. 🔧 Implementation Plan
 
-- Step‑by‑step plan: whether incremental refactor / new module / migration / rollout
-- Database migration / data evolution / versioning / backward‑compatibility considerations
-- Async tasks / background jobs / scheduling setup (if needed)
+1.  **[Phase 1: Name]**: [Description]
+2.  **[Phase 2: Name]**: [Description]
 
-### ⚖️ Trade‑offs & Alternatives
+### 6. ⚖️ Trade-offs
 
-- Pros / cons of chosen design vs alternative designs (e.g. monolithic vs modular vs microservice vs plugin)
-- Risks and mitigation strategies (performance, complexity, data consistency, deployment overhead, team coordination, code duplication, etc.)
+- **Pros**: [Advantage of this design]
+- **Cons**: [Disadvantage or cost]
+- **Alternatives Considered**: [Brief mention of other options]
 
-### 🚀 Future & Maintainability Considerations
-
-- Guidelines for future development (scaling, new features, plugin/extension, module boundaries, testing, documentation, code reuse)
-- Recommendation to define / add project‑rules (if not present) to record conventions, for future consistency
+```
 
 ---
 
 When giving suggestions, aim to be **practical** — balance maintainability, clarity, extensibility and simplicity. Use **clear, actionable** language, and when useful, include **pseudo‑code / directory examples / diagrams / API contract sketches**.
+```

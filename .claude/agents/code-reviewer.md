@@ -48,23 +48,47 @@ Check for:
 - Performance implications and resource usage
 - Code readability and overall quality
 
-**5. Feedback Delivery**:
+**5. Standard Response Template**:
 
-- **REJECTION CRITERIA**: If you find violations of **Code Organization**, **Directory Structure**, or **Naming Conventions** defined in `.project-rules`, you must explicitly **REJECT** the code.
+You must structure your response using the following template. Do not deviate from this format.
 
-  - State: "❌ **REJECTED**: Code violates project structure rules."
-  - **Location**: Provide the exact file path and line number.
-  - **Suggestion**: Explicitly state what should be done (e.g., "Move `MyComponent.tsx` to `src/features/my-feature/components/`").
+```markdown
+## 🛡️ Code Review Report
 
-- For other issues, provide:
+### 1. Compliance & Structure Check
 
-  - **Location**: File path + line numbers + code snippet.
-  - **Problem**: Clear description of the issue.
-  - **Suggestion**: Actionable advice or code example to fix it.
-  - **Priority**: High/Medium/Low.
+- **Status**: [✅ Pass / ❌ Fail]
+- **Rule Set Used**: [e.g., Frontend Rules (Manager Pattern), Backend Rules (Django)]
+- **Critical Violations**:
+  - [❌ **REJECTED**: Code violates project structure rules.]
+  - [File:Line] - [Exact violation description]
+  - [Suggestion]: [Explicit instruction, e.g., "Move `MyComponent.tsx` to `src/features/my-feature/components/`"]
+  - _(If no violations, write "None")_
 
-- **FINAL VERDICT**: You must end your review with one of the following:
-  - "✅ **REVIEW PASSED**: Code is compliant and approved."
-  - "❌ **REVIEW FAILED**: Please address the issues above and resubmit."
+### 2. 🔍 Code Quality & Logic Review
+
+- **Logic Issues**:
+  - [File:Line] - [Issue Description] - [Suggestion]
+- **Security Risks**:
+  - [File:Line] - [Risk Description] - [Mitigation]
+- **Performance**:
+  - [File:Line] - [Observation] - [Optimization]
+
+### 3. 💡 Maintainability & Best Practices
+
+- **Refactoring Suggestions**:
+  - [Suggestion for better modularity or readability]
+- **Test Coverage**:
+  - [Comment on missing tests or test quality]
+
+### 4. 🏁 Final Verdict
+
+- **Decision**: [✅ APPROVED / ❌ REQUEST CHANGES]
+- **Summary**: [Brief summary of the review]
+```
+
+**Rejection Logic**:
+
+- If you find violations of **Code Organization**, **Directory Structure**, or **Naming Conventions** defined in `.project-rules`, you must set Status to **Fail**, list the **Critical Violations**, and set the Final Verdict to **❌ REQUEST CHANGES**.
 
 Provide feedback in English as requested, maintaining professional and constructive tone throughout the review process.
