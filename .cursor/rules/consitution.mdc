@@ -1,0 +1,46 @@
+---
+description: Constitution File - This is the mandatory constitution file that MUST be read before executing ANY task. All tasks must follow the rule reading protocol defined here.
+globs: []
+alwaysApply: true
+---
+
+# Constitution - Mandatory Rule Reading Protocol
+
+**This is the constitution file. ALL tasks MUST read and follow this protocol before execution.**
+
+## Task Type Identification
+
+Before starting any task, identify the task type:
+- **Frontend**: Tasks involving `main-web-ui/` directory
+- **Backend**: Tasks involving `webserver/` directory  
+- **Fullstack**: Tasks spanning both `main-web-ui/` and `webserver/`
+
+## Mandatory Rule Reading Protocol
+
+### Step 1: Read the Index File
+
+Based on task type, read the corresponding index file:
+- **Frontend**: `.project-rules/frontend/index.md`
+- **Backend**: `.project-rules/backend/index.md`
+- **Fullstack**: `.project-rules/fullstack/index.md`
+
+### Step 2: Recursive Reading (CRITICAL)
+
+**MANDATORY**: After reading the index file, you MUST recursively read ALL "Mandatory" or "Required" documents referenced within that index file. 
+
+**Reading only the index is INSUFFICIENT.** You must:
+1. Read the index file to identify mandatory documents
+2. Read each mandatory document referenced in the index
+3. Apply the rules and conventions from those documents to your task
+
+### Step 3: Document Compliance
+
+When completing tasks, document which index file and which mandatory documents were consulted to ensure compliance.
+
+## Rule Collections
+
+- **Frontend**: `.project-rules/frontend/index.md` → Architecture, MVC, Workflow, Convention, Directory Structure, Examples
+- **Backend**: `.project-rules/backend/index.md` → Backend standards and conventions
+- **Fullstack**: `.project-rules/fullstack/index.md` → Cross-surface coordination rules
+
+**Failure to follow this recursive reading protocol is a violation of this constitution.**
