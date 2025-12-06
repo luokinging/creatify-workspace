@@ -1,5 +1,7 @@
 .git
+.git/
 .gitignore
+.dockerignore
 node_modules/
 main-web-ui/node_modules/
 main-web-ui/dist/
@@ -9,6 +11,9 @@ main-web-ui/.turbo/
 main-web-ui/.cache/
 webserver/.env
 webserver/.env.*
+.env
+.env.*
+*.env
 *.pyc
 __pycache__/
 .pytest_cache/
@@ -20,6 +25,7 @@ dist/
 build/
 .DS_Store
 *.log
+*.log.*
 specs/
 docs/
 tmp/

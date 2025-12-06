@@ -1,0 +1,36 @@
+# Dependency artifacts
+node_modules/
+bun.lockb
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.turbo/
+storybook-static/
+
+# Generated caches
+.vite/
+.vite-cache/
+.cache/
+.tanstack/
+
+# Test artifacts
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.*
+
+# Specs and docs are authored separately
+specs/
+docs/
+
+
+
