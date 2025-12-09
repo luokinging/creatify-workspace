@@ -24,8 +24,6 @@ cd src [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNOLO
 Python 3.12 (Backend), TypeScript/React (Frontend): Follow standard conventions
 
 ## Recent Changes
-- 001-admax-no-account: Added TypeScript 5.5.4 (Bun toolchain) + React 18.3, TanStack Router/Query, Zustand Managers, internal dialog manager, Tailwind design system
-- 001-admax-no-account: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
 
 - 001-adgroup-filter-support: Added Python 3.12 (Backend), TypeScript/React (Frontend) + Django Rest Framework (Backend), React, Zustand (Frontend)
 
