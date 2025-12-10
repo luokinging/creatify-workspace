@@ -134,6 +134,36 @@ class MyManager {
 - 使用 `import { createStore } from 'zustand/vanilla';` 在类内部创建 Store。
 - 外部只能通过 Manager/ViewController 的方法或属性访问状态。
 
+### ❌ 依赖 useCombinedStore Selector 参数
+
+**反模式**：在 `useCombinedStore` 的 selector 回调中使用参数来获取 State。
+
+```typescript
+// ❌ 错误示范
+const sections = useCombinedStore(
+  vc.combinedStore,
+  (detailState, sectionState) => sectionState // ❌ 依赖 Store 顺序
+);
+```
+
+**原因**：
+
+- 导致代码对 `combinedStore` 中 Store 的顺序产生隐式依赖，一旦顺序调整容易引发 Bug。
+- 降低了代码的可读性和可维护性。
+
+**正确做法**：
+
+- Selector 回调保持空参数。
+- 直接通过 Manager 或者 VC 的属性访问状态。
+
+```typescript
+// ✅ 正确示范
+const sections = useCombinedStore(
+  vc.combinedStore,
+  () => vc.sectionSizeManager.state // ✅ 直接访问 Manager 属性
+);
+```
+
 ## 4. 总结
 
 - **保持组件纯净**：组件只负责 UI。

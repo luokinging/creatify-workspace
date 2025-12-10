@@ -327,17 +327,8 @@ function MyBootstrap({ children }: { children: ReactNode }) {
 
   return (
     <ViewControllerContext.Provider value={vc}>
-      {children}
-    </ViewControllerContext.Provider>
-  );
-}
-
-// 在页面中使用
-function MyPage() {
-  return (
-    <MyBootstrap>
       <MyPageContent />
-    </MyBootstrap>
+    </ViewControllerContext.Provider>
   );
 }
 ```
