@@ -89,6 +89,27 @@ feature/example
 
 - **职责：** 存放纯函数工具类。
 
+## 3. 导出规范 (Export Rules)
+
+### Feature 级别导出规范
+
+- **禁止统一导出：** feature 级别的逻辑（Manager、API、Component、Block 等）**禁止**统一在 `index` 文件中导出。
+- **直接引用：** 必须直接引用具体文件位置，而不是通过 `index` 文件间接引用。
+- **原因：** 
+  - 提高代码可读性和可维护性
+  - 避免循环依赖问题
+  - 明确依赖关系，便于代码追踪
+
+**示例：**
+
+```typescript
+// ❌ 错误：通过 index 统一导出
+import { SomeManager } from '@/feature/example/manager';
+import { SomeAPI } from '@/feature/example/api';
+
+// ✅ 正确：直接引用具体位置
+import { SomeManager } from '@/feature/example/manager/some-manager';
+import { SomeAPI } from '@/feature/example/api/some.api';
 ```
 
 ```
