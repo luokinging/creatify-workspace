@@ -24,43 +24,34 @@ description: AI Agent 规则文档索引 - 列出必须阅读的文档和可选�
 
 **使用场景：** 涉及创建 Manager、ViewController、Service 或理解业务逻辑与 UI 分离的架构设计
 
-### 2. [开发工作流程](./workflow.md)
-
-**使用场景：** 执行 Bugfix、Feature Update、Complete Feature、Refactor 等任务时需要遵循的标准流程
-
-### 3. [目录结构规范](./directory-structure.md)
-
-**使用场景：** 创建或修改 Feature 目录结构，需要了解 api、manager、component、block、page 等目录的职责
-
-### 4. [实战案例与设计模式](./examples.md)
-
-**使用场景：** 复杂架构设计、多平台适配、需要参考真实案例和设计模式
-
-### 5. [反模式](./anti-patterns.md)
-
-**使用场景：** Code Review、避免常见错误，需要了解不应该做什么
-
 ---
 
 ## 可选文档（Optional）
 
 除了上述必须阅读的文档外，`.project-rules/frontend` 目录下还有其他文档。**AI Agent 需要自行判断是否需要阅读这些文档。**
 
-<<<<<<< Updated upstream
-### 常见可选文档
-
-以下是一些常见的可选文档，根据任务需求判断是否需要阅读：
-
-- **[Dialog 管理系统](./dialog.md)** - 涉及 Dialog 组件开发、使用 dialogManager 管理弹窗时需阅读
-- **[通用工具管理器](./utility-managers.md)** - 涉及使用 DisposerManager、ProcessingTaskManager、SelectionManager 等工具管理器时需阅读
-- **[代码重构指南](./refactoring.md)** - 执行代码重构任务时需阅读，包含重构前的深度分析、架构重设计、增量重构四步法
-=======
 ### 可选文档列表
 
 以下是一些常见的可选文档：
 
+- **[目录结构规范](./directory-structure.md)** - 创建或修改 Feature 目录结构，需要了解 api、manager、component、block、page 等目录的职责
+
+- **[反模式](./anti-patterns.md)** - Code Review、避免常见错误，需要了解不应该做什么
+
+- **[组件使用规范](./component-usage.md)** - 优先使用项目内部组件库（`main-web-ui/component/ui`），其次使用 shadcn 提供的组件
+
 - **[请求相关注意事项](./request-notes.md)** - 使用 `createAutoKeyMiniClient`、`PaginatedQueryManager`、`useAutoKeyQuery` 等 API 时的注意事项和常见陷阱
->>>>>>> Stashed changes
+
+- **[实战案例与设计模式](./examples.md)** - 增加 feature 和大 feature 更新时，需要参考真实案例和设计模式
+
+- **工作流程文档** - 执行不同类型开发任务时的标准流程：
+  - **[工作流程通用原则](./workflow-principles.md)** - 代码分析、工具验证、增量修改、ESM 模块化等通用执行原则
+  - **[工作流程指南](./workflow-guide.md)** - 工作流程分类、决策树和常见问题处理
+  - **[Bugfix 工作流程](./workflow-bugfix.md)** - 修复现有功能缺陷的标准流程
+  - **[Small Change 工作流程](./workflow-small-change.md)** - 小型功能调整或优化的标准流程
+  - **[Feature Update 工作流程](./workflow-feature-update.md)** - 现有功能增强或扩展的标准流程
+  - **[Complete Feature 工作流程](./workflow-complete-feature.md)** - 全新功能模块开发的标准流程，包含 Spec 编写和分阶段实现
+  - **[Refactor 工作流程](./workflow-refactor.md)** - 代码重构和优化的标准流程
 
 ### 如何判断是否需要阅读可选文档？
 
@@ -89,8 +80,8 @@ description: AI Agent 规则文档索引 - 列出必须阅读的文档和可选�
 
 1. **开始任务前：**
 
-   - 必须阅读所有"必须阅读的文档"（共 5 个）
-   - 根据任务类型选择对应的工作流程（Workflow）
+   - 必须阅读所有"必须阅读的文档"（共 1 个）
+   - 根据任务类型选择对应的工作流程（Workflow），参考可选文档中的工作流程文档
    - 浏览 `.project-rules/frontend` 目录下的其他文件，阅读每个文件的前 4 行（头部信息）
    - 根据头部信息中的 `description` 判断是否需要阅读可选文档
 
@@ -103,6 +94,5 @@ description: AI Agent 规则文档索引 - 列出必须阅读的文档和可选�
 3. **执行任务时：**
    - 遵循对应的工作流程
    - 参考架构设计指南
-   - 遵守目录结构规范
-   - 注意绝对禁止事项
+   - 根据任务需要参考可选文档（如目录结构规范、反模式等）
 ---
