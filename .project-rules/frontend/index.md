@@ -46,6 +46,7 @@ description: AI Agent 规则文档索引 - 列出必须阅读的文档和可选�
 
 除了上述必须阅读的文档外，`.project-rules/frontend` 目录下还有其他文档。**AI Agent 需要自行判断是否需要阅读这些文档。**
 
+<<<<<<< Updated upstream
 ### 常见可选文档
 
 以下是一些常见的可选文档，根据任务需求判断是否需要阅读：
@@ -53,6 +54,13 @@ description: AI Agent 规则文档索引 - 列出必须阅读的文档和可选�
 - **[Dialog 管理系统](./dialog.md)** - 涉及 Dialog 组件开发、使用 dialogManager 管理弹窗时需阅读
 - **[通用工具管理器](./utility-managers.md)** - 涉及使用 DisposerManager、ProcessingTaskManager、SelectionManager 等工具管理器时需阅读
 - **[代码重构指南](./refactoring.md)** - 执行代码重构任务时需阅读，包含重构前的深度分析、架构重设计、增量重构四步法
+=======
+### 可选文档列表
+
+以下是一些常见的可选文档：
+
+- **[请求相关注意事项](./request-notes.md)** - 使用 `createAutoKeyMiniClient`、`PaginatedQueryManager`、`useAutoKeyQuery` 等 API 时的注意事项和常见陷阱
+>>>>>>> Stashed changes
 
 ### 如何判断是否需要阅读可选文档？
 
