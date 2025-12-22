@@ -2,30 +2,30 @@
 description: 实战案例与设计模式深度解析 - 策略模式、依赖注入、多平台仪表盘架构设计
 ---
 
-# 实战案例与设计模式深度解析 (Deep Dive)
+# 实战案例与设计模式深度解析
 
 本文档不仅仅展示代码片段，更旨在传授**如何像资深工程师一样思考**。我们将深入探讨设计模式（策略模式、依赖注入）、接口定义以及如何构建可维护的大型前端应用。
 
-## 1. 设计思维：从需求到架构 (Design Thinking)
+## 1. 设计思维：从需求到架构
 
 当你接到一个复杂需求（例如："做一个支持 Meta 和 TikTok 的广告数据仪表盘"）时，请按以下步骤思考：
 
-### 第一步：领域分析 (Domain Analysis)
+### 第一步：领域分析
 *   **共性是什么？** 都有筛选器、表格、分页、排序。
 *   **差异是什么？** Meta 有 "Quality Ranking" 指标，TikTok 没有；Meta 的筛选器支持 "Objective"，TikTok 支持 "Campaign Type"。
 *   **结论：** 我们需要一个统一的框架来处理共性，用**策略模式 (Strategy Pattern)** 来处理差异。
 
-### 第二步：分层设计 (Layering)
+### 第二步：分层设计
 *   **视图层 (View):** 只有一套 UI 骨架（Header, Filter, Table），具体内容由适配器填充。
 *   **控制层 (Controller):** 需要一个总指挥 (ViewController) 来协调筛选器和数据加载。
 *   **模型层 (Model):** 每个平台需要独立的 Manager 来管理自己的 API 请求和数据状态。
 
-### 第三步：定义接口 (Interface Definition)
+### 第三步：定义接口
 在写实现代码前，先定义**接口**。这是模块间的契约。
 
 ## 2. 核心模式详解
 
-### A. 策略模式 (Strategy Pattern) - 处理平台差异
+### A. 策略模式 - 处理平台差异
 
 我们定义一个 `IViewAdapter` 接口，规定所有平台适配器必须具备的能力。
 
@@ -48,7 +48,7 @@ export interface IViewAdapter {
 }
 ```
 
-### B. 依赖注入 (Dependency Injection) - 通过构造函数传入
+### B. 依赖注入 - 通过构造函数传入
 
 **重要：** 项目的依赖注入是通过构造函数传入依赖，不需要自动注入、Container 等复杂概念。
 
@@ -74,7 +74,7 @@ const metaManager = new MetaAdsManager();
 const vc = new ViewController(userService, metaManager);
 ```
 
-### C. 组合优于继承 (Composition over Inheritance)
+### C. 组合优于继承
 
 不要搞复杂的类继承体系。使用组合将小的 Manager 拼装成大的 Controller。
 
@@ -98,7 +98,7 @@ feature/metric-dashboard/
     └── index.tsx
 ```
 
-### 步骤 1: 实现数据层 (The Data Layer)
+### 步骤 1: 实现数据层
 
 使用 `PaginatedQueryManager` (通用工具) 来管理 API 请求。
 
@@ -121,7 +121,7 @@ export class MetaAdsManager {
 }
 ```
 
-### 步骤 2: 实现适配器 (The Strategy)
+### 步骤 2: 实现适配器
 
 适配器连接 UI 和 数据层。
 
@@ -146,7 +146,7 @@ export class MetaViewAdapter implements IViewAdapter {
 }
 ```
 
-### 步骤 3: 实现总控制器 (The Orchestrator)
+### 步骤 3: 实现总控制器
 
 VC 负责根据当前状态选择正确的策略（适配器）。
 
@@ -182,7 +182,7 @@ export class MetricViewController {
 }
 ```
 
-### 步骤 4: 视图层实现 (The View)
+### 步骤 4: 视图层实现
 
 视图层完全不知道 "Meta" 或 "TikTok" 的存在，它只知道 `IViewAdapter` 接口。
 
@@ -224,49 +224,14 @@ export function MetricDashboard() {
 
 ```tsx
 // context/metric-view-controller-context.tsx
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-import { useServices } from '@/feature/services/app-container-service/react-context';
-import { MetricViewController } from '../manager/metric-view-controller';
-import { MetaViewAdapter } from '../manager/view-adapter/meta-view-adapter';
-import { TiktokViewAdapter } from '../manager/view-adapter/tiktok-view-adapter';
-import { FilterManager } from '../manager/filter-manager';
-
 // 创建 Context
 const MetricViewControllerContext = createContext<MetricViewController | null>(null);
 
-// Provider 组件
-export function MetricViewControllerProvider({ children }: { children: ReactNode }) {
-  const transientDataService = useServices(ITransientDataService);
-  
-  // 使用 useState 创建 ViewController 实例，确保只创建一次
-  const [vc] = useState(() => {
-    // 创建依赖的 Managers
-    const filterManager = new FilterManager();
-    const metaAdsManager = new MetaAdsManager();
-    const tiktokAdsManager = new TiktokAdsManager();
-    
-    // 创建 Adapters
-    const metaAdapter = new MetaViewAdapter(metaAdsManager);
-    const tiktokAdapter = new TiktokViewAdapter(tiktokAdsManager);
-    
-    // 创建 ViewController
-    return new MetricViewController(
-      transientDataService,
-      metaAdapter,
-      tiktokAdapter,
-      filterManager
-    );
-  });
-
-  // 生命周期管理
-  useEffect(() => {
-    vc.bootstrap();
-    
-    return () => {
-      vc.dispose();
-    };
-  }, [vc]);
-
+// Provider 组件：只负责提供 ViewController，接收 vc 作为 prop
+export function MetricViewControllerProvider({ 
+  children, 
+  vc 
+}: { children: ReactNode; vc: MetricViewController }) {
   return (
     <MetricViewControllerContext.Provider value={vc}>
       {children}
@@ -295,9 +260,38 @@ export function useMetricViewController(): MetricViewController {
 import { MetricViewControllerProvider } from '../context/metric-view-controller-context';
 import { MetricDashboardContent } from './metric-dashboard-content';
 
+// Page 组件：负责创建 ViewController、管理生命周期、包裹 Provider
 export function MetricDashboard() {
+  const transientDataService = useServices(ITransientDataService);
+  
+  // 使用 useState 分别创建各个 Manager 实例，确保只创建一次
+  const [filterManager] = useState(() => new FilterManager());
+  const [metaAdsManager] = useState(() => new MetaAdsManager());
+  const [tiktokAdsManager] = useState(() => new TiktokAdsManager());
+  
+  // 使用 useState 分别创建各个 Adapter 实例，确保只创建一次
+  const [metaAdapter] = useState(() => new MetaViewAdapter(metaAdsManager));
+  const [tiktokAdapter] = useState(() => new TiktokViewAdapter(tiktokAdsManager));
+  
+  // 使用 useState 创建 ViewController 实例，确保只创建一次
+  const [vc] = useState(() => new MetricViewController(
+    transientDataService,
+    metaAdapter,
+    tiktokAdapter,
+    filterManager
+  ));
+
+  // 生命周期管理
+  useEffect(() => {
+    vc.bootstrap();
+    
+    return () => {
+      vc.dispose();
+    };
+  }, [vc]);
+
   return (
-    <MetricViewControllerProvider>
+    <MetricViewControllerProvider vc={vc}>
       <MetricDashboardContent />
     </MetricViewControllerProvider>
   );
@@ -332,7 +326,6 @@ function MetricDashboardContent() {
 
 ```tsx
 // component/filter-bar.tsx
-import { useMetricViewController } from '../context/metric-view-controller-context';
 
 export function FilterBar() {
   const vc = useMetricViewController();
@@ -656,10 +649,10 @@ export async function getCampaignsApi(params: {
 ```
 
 **关键要点：**
-- ✅ 使用 `clientRequest<T>`，第一个泛型参数指定响应类型
-- ✅ 只负责 API 调用，不包含数据转换
-- ✅ 按领域拆分文件（如 `campaign.api.ts`, `report.api.ts`）
-- ❌ 不要在 API 函数中进行数据转换或业务逻辑处理
+- 使用 `clientRequest<T>`，第一个泛型参数指定响应类型
+- 只负责 API 调用，不包含数据转换
+- 按领域拆分文件（如 `campaign.api.ts`, `report.api.ts`）
+- 不要在 API 函数中进行数据转换或业务逻辑处理
 
 ---
 
@@ -694,6 +687,6 @@ export function useCampaignViewController() {
 ```
 
 **关键要点：**
-- ✅ 使用 `useState` 创建 ViewController 实例，确保只创建一次
-- ✅ 在 `useEffect` 中管理生命周期（`bootstrap`/`dispose`）
-- ✅ 通过构造函数传入依赖，在 `new` 的时候传递实例
+- 使用 `useState` 创建 ViewController 实例，确保只创建一次
+- 在 `useEffect` 中管理生命周期（`bootstrap`/`dispose`）
+- 通过构造函数传入依赖，在 `new` 的时候传递实例

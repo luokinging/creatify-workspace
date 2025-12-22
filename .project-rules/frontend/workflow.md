@@ -2,7 +2,7 @@
 description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature Update、Complete Feature、Refactor 的标准流程
 ---
 
-# AI Agent 开发工作流程指南 (AI Agent Development Workflow Guide)
+# AI Agent 开发工作流程指南
 
 本文档定义了 AI Agent 执行不同类型开发任务的标准工作流程，所有步骤都基于代码分析、工具命令和静态检查，无需人工操作浏览器或 DevTools。
 
@@ -25,37 +25,37 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 ## 通用执行原则
 
 ### 1. 代码分析优先
-- ✅ 先分析代码结构，理解现有实现
-- ✅ 搜索相关代码，理解上下文和依赖关系
-- ✅ 理解数据流和模块职责
-- ❌ 不要假设代码结构，必须先分析
-- ❌ 没有特别指定，不需要新增任何的分析类的事件上报
+- 先分析代码结构，理解现有实现
+- 搜索相关代码，理解上下文和依赖关系
+- 理解数据流和模块职责
+- 不要假设代码结构，必须先分析
+- 没有特别指定，不需要新增任何的分析类的事件上报
 
 ### 2. 工具命令验证
-- ✅ 每次修改后运行类型检查确保没有类型错误
-- ✅ 每次修改后运行代码格式检查确保格式正确
-- ✅ 每次修改后运行代码质量检查确保符合规范
-- ✅ 读取并修复所有 lint 错误
-- ❌ 不要跳过类型检查和 lint 检查
+- 每次修改后运行类型检查确保没有类型错误
+- 每次修改后运行代码格式检查确保格式正确
+- 每次修改后运行代码质量检查确保符合规范
+- 读取并修复所有 lint 错误
+- 不要跳过类型检查和 lint 检查
 
 ### 3. 增量修改
-- ✅ 每次只修改必要的文件
-- ✅ 保持修改范围最小化
-- ✅ 遵循现有代码风格和架构模式
-- ❌ 不要一次性修改大量无关文件
+- 每次只修改必要的文件
+- 保持修改范围最小化
+- 遵循现有代码风格和架构模式
+- 不要一次性修改大量无关文件
 
 ### 4. 验证步骤
-- ✅ 运行类型检查确保没有类型错误
-- ✅ 运行 lint 检查确保代码质量
-- ✅ 检查导入导出是否正确
-- ✅ 检查是否有未使用的代码
+- 运行类型检查确保没有类型错误
+- 运行 lint 检查确保代码质量
+- 检查导入导出是否正确
+- 检查是否有未使用的代码
 
 ### 5. ESM 模块化规范
-- ✅ 使用 ESM（ES Module）模块化规范
-- ✅ 使用静态导入：`import { ... } from './path'`
-- ✅ 使用命名导出：`export { ... }` 或 `export const ...`
-- ❌ **禁止使用动态导入**：不允许使用 `import()`、`require()` 或 `await import()`
-- ❌ **禁止使用 CommonJS**：不允许使用 `module.exports` 或 `require()`
+- 使用 ESM（ES Module）模块化规范
+- 使用静态导入：`import { ... } from './path'`
+- 使用命名导出：`export { ... }` 或 `export const ...`
+- **禁止使用动态导入**：不允许使用 `import()`、`require()` 或 `await import()`
+- **禁止使用 CommonJS**：不允许使用 `module.exports` 或 `require()`
 
 ---
 
@@ -63,7 +63,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 
 **原则：快速定位，最小改动，工具验证。**
 
-### 步骤 1：问题定位 (Locate)
+### 步骤 1：问题定位
 
 1. **理解问题描述**
    - 明确问题现象（如：类型错误、运行时错误、逻辑错误）
@@ -86,20 +86,20 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
    - 检查是否有其他文件依赖被修改的代码
    - 评估修改的影响范围
 
-### 步骤 2：修复实施 (Fix)
+### 步骤 2：修复实施
 
 **修复原则：**
-- ✅ 最小改动：只改必须改的地方
-- ✅ 保持架构：不引入新的技术债
-- ✅ 遵循现有模式：使用项目中已有的实现方式
-- ❌ 避免"顺手重构"：Bugfix 不是重构的时机
+- 最小改动：只改必须改的地方
+- 保持架构：不引入新的技术债
+- 遵循现有模式：使用项目中已有的实现方式
+- 避免"顺手重构"：Bugfix 不是重构的时机
 
 **代码修改流程：**
 1. 读取需要修改的文件，理解完整上下文
 2. 进行精确修改，保持代码风格一致
 3. 确保修改符合项目代码风格和架构规范
 
-### 步骤 3：验证与测试 (Verify)
+### 步骤 3：验证与测试
 
 1. **类型检查**
    - 运行类型检查确保没有类型错误
@@ -117,7 +117,6 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
    - [ ] 没有未使用的导入
    - [ ] 没有 console.log 残留
    - [ ] 修改范围最小化
-   - [ ] 没有使用动态导入（`import()`、`require()`）
 
 ---
 
@@ -125,7 +124,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 
 **原则：理解现有架构，遵循现有模式，不破坏一致性。**
 
-### 步骤 1：需求理解 (Understand)
+### 步骤 1：需求理解
 
 1. **明确需求**
    - 理解需要实现的功能
@@ -137,7 +136,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
    - 是否需要新增文件？
    - 是否需要修改类型定义？
 
-### 步骤 2：查找现有模式 (Find Patterns)
+### 步骤 2：查找现有模式
 
 **关键问题：**
 - 项目中是否已有类似功能？
@@ -151,7 +150,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 - 查看类型定义文件理解数据结构
 - 读取现有实现理解模式和架构
 
-### 步骤 3：实施改动 (Implement)
+### 步骤 3：实施改动
 
 **遵循现有架构：**
 
@@ -168,7 +167,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 3. 使用现有的组件和工具函数
 4. 保持代码风格一致
 
-### 步骤 4：验证与提交 (Verify)
+### 步骤 4：验证与提交
 
 1. **类型检查**
    - 运行类型检查确保没有类型错误
@@ -184,7 +183,6 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
    - [ ] 遵循了现有的代码风格
    - [ ] 遵循了项目的架构规范
    - [ ] 没有引入不必要的依赖
-   - [ ] 没有使用动态导入（`import()`、`require()`）
 
 ---
 
@@ -192,7 +190,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 
 **原则：先设计后实现，保持向后兼容，逐步迭代。**
 
-### 步骤 1：需求分析与设计 (Analyze & Design)
+### 步骤 1：需求分析与设计
 
 1. **需求拆解**
    - 将大需求拆分为小任务
@@ -220,7 +218,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 - 列出需要新增的文件列表
 - 描述数据流和模块职责
 
-### 步骤 2：分阶段实施 (Phased Implementation)
+### 步骤 2：分阶段实施
 
 **推荐顺序：**
 
@@ -233,7 +231,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 #### 阶段 2：数据层 (Data Layer)
 - 实现 API 调用函数（在 `api/` 目录）
 - 实现 Manager 的数据获取逻辑
-- 实现状态管理（Zustand Store）
+- 实现状态管理
 - 运行类型检查确保数据层正确
 
 #### 阶段 3：视图层 (View Layer)
@@ -248,7 +246,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 - 优化代码结构和性能
 - 最终验证所有检查通过
 
-### 步骤 3：增量验证 (Incremental Verification)
+### 步骤 3：增量验证
 
 **每个阶段完成后：**
 1. 运行类型检查
@@ -256,9 +254,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 3. 运行代码质量检查
 4. 读取并修复所有错误
 
-**不要一次性提交所有代码！** 按阶段验证和提交。
-
-### 步骤 4：最终验证 (Final Verification)
+### 步骤 4：最终验证
 
 - [ ] 所有类型检查通过
 - [ ] 所有 lint 检查通过
@@ -266,7 +262,6 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 - [ ] 所有 Manager 都实现了 `bootstrap` 和 `dispose`
 - [ ] 没有未使用的导入和代码
 - [ ] 代码可读性和可维护性良好
-- [ ] 没有使用动态导入（`import()`、`require()`）
 
 ---
 
@@ -317,7 +312,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 - 列出所有需要修改的文件
 - 遵循项目的目录结构标准
 - 明确每个文件的职责
-- **重要：** 不需要创建统一的 `index.ts` 或 `index.tsx` 导出文件，直接使用具体文件的导入路径
+- **重要：** 不需要创建统一的 `index.ts` 或 `index.tsx` 导出文件（如 `feature/example/index.ts`），直接使用具体文件的导入路径。注意：`page/` 目录下的 `index.tsx` 是页面入口文件，不是统一导出文件，这是允许的。
 
 **1.3.5 组件设计**
 - 列出所有需要的 UI 组件（component/）
@@ -348,7 +343,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 
 **只有 Spec 确认无误后，才能进入编码阶段。**
 
-### 步骤 3：搭建骨架 (Scaffolding)
+### 步骤 3：搭建骨架
 
 **严格按照 Spec 中的目录结构设计创建文件：**
 
@@ -378,7 +373,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 - 确保所有文件都能正确导入导出
 - **重要：** 不要创建统一的 `index.ts` 或 `index.tsx` 导出文件，直接使用具体文件的导入路径
 
-### 步骤 4：分阶段实现 (Phased Implementation)
+### 步骤 4：分阶段实现
 
 **严格按照 Spec 中的设计逐步实现：**
 
@@ -406,7 +401,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 - 优化代码结构和性能
 - 最终验证所有检查通过
 
-### 步骤 5：增量验证 (Incremental Verification)
+### 步骤 5：增量验证
 
 **每个阶段完成后：**
 1. 运行类型检查
@@ -415,7 +410,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 4. 读取并修复所有错误
 5. 对照 Spec 检查实现是否完整
 
-### 步骤 6：最终验证 (Final Verification)
+### 步骤 6：最终验证
 
 - [ ] 对照 Spec 检查所有功能是否实现
 - [ ] 所有类型检查通过
@@ -426,7 +421,6 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 - [ ] 没有"上帝组件"（组件职责单一）
 - [ ] 代码可读性和可维护性良好
 - [ ] 没有未使用的导入和代码
-- [ ] 没有使用动态导入（`import()`、`require()`）
 
 ---
 
@@ -434,7 +428,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 
 **原则：保持功能不变，提升代码质量，逐步重构。**
 
-### 步骤 1：重构目标分析 (Analyze Refactoring Goals)
+### 步骤 1：重构目标分析
 
 1. **明确重构目标**
    - 为什么要重构？（如：代码重复、结构混乱、性能问题）
@@ -453,7 +447,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
    - 识别重构的风险点
    - 确定验证方法
 
-### 步骤 2：重构设计 (Refactoring Design)
+### 步骤 2：重构设计
 
 **必须设计以下内容：**
 
@@ -462,7 +456,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 - 列出需要提取的组件或函数
 - 描述新的模块职责划分
 - 描述新的依赖关系
-- **重要：** 不需要创建统一的 `index.ts` 或 `index.tsx` 导出文件，直接使用具体文件的导入路径
+- **重要：** 不需要创建统一的 `index.ts` 或 `index.tsx` 导出文件（如 `feature/example/index.ts`），直接使用具体文件的导入路径。注意：`page/` 目录下的 `index.tsx` 是页面入口文件，不是统一导出文件，这是允许的。
 
 #### 2.2 重构步骤设计
 - 将重构拆分为多个小步骤
@@ -481,17 +475,17 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 - 文件清单：列出所有需要创建、修改、删除的文件
 - 步骤清单：列出所有重构步骤和验证方法
 
-### 步骤 3：重构实施 (Refactoring Implementation)
+### 步骤 3：重构实施
 
 **严格按照重构设计逐步实施：**
 
 #### 原则：
-- ✅ 每次只完成一个小的重构步骤
-- ✅ 每个步骤完成后立即验证
-- ✅ 保持功能不变，只改变代码结构
-- ✅ 遵循项目的代码规范和架构模式
-- ❌ 不要一次性进行大规模重构
-- ❌ 不要在重构时添加新功能
+- 每次只完成一个小的重构步骤
+- 每个步骤完成后立即验证
+- 保持功能不变，只改变代码结构
+- 遵循项目的代码规范和架构模式
+- 不要一次性进行大规模重构
+- 不要在重构时添加新功能
 
 #### 常见重构类型：
 
@@ -523,7 +517,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 - 验证功能不变
 - **重要：** 不要创建统一的 `index.ts` 或 `index.tsx` 导出文件，直接使用具体文件的导入路径
 
-### 步骤 4：增量验证 (Incremental Verification)
+### 步骤 4：增量验证
 
 **每个重构步骤完成后：**
 1. 运行类型检查确保没有类型错误
@@ -534,7 +528,7 @@ description: AI Agent 开发工作流程指南 - Bugfix、Small Change、Feature
 
 **重要：** 每个重构步骤都应该是独立的、可回滚的。如果某个步骤出现问题，应该立即回滚。
 
-### 步骤 5：最终验证 (Final Verification)
+### 步骤 5：最终验证
 
 - [ ] 所有重构步骤已完成
 - [ ] 所有类型检查通过
@@ -603,7 +597,7 @@ graph TD
 
 ### 问题 4：不确定实现方式
 1. 搜索项目中类似的实现
-2. 查看项目的规则文档（如 `mvc-architecture.mdc`）
+2. 查看项目的规则文档（如 `architecture.md`）
 3. 查看现有代码的模式
 4. 遵循项目的架构标准
 
@@ -615,19 +609,9 @@ graph TD
 
 ---
 
-## 结语
-
-这个工作流程是为了帮助 AI Agent：
-1. **减少决策成本**：不需要每次都从零思考"怎么做"
-2. **保证代码质量**：统一的流程确保了统一的质量标准
-3. **提升执行效率**：明确的步骤确保高效执行
-4. **避免返工**：Spec 优先的方法确保先设计后实现，减少返工
-
 **重要原则：**
 - **Spec 优先**：对于功能开发，必须先完成 Spec 设计，确认无误后才能开始编码
 - **增量验证**：每个步骤完成后都要验证，确保代码质量
 - **最小改动**：Bugfix 和 Small Change 要保持改动范围最小化
 - **逐步重构**：Refactor 要分步骤进行，每个步骤都要验证
 - **ESM 模块化**：严格使用 ESM 规范，禁止动态导入（`import()`、`require()`）
-
-**记住：流程是为了更好地写代码，不是为了流程而流程。在实际执行中，可以根据具体情况灵活调整。**

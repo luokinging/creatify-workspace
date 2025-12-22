@@ -8,11 +8,11 @@ description: 代码重构方法论 - 重构前的深度分析、架构重设计�
 
 ---
 
-## 阶段 1：重构前的深度分析 (Pre-Refactoring Analysis)
+## 阶段 1：重构前的深度分析
 
 **原则：理解优先于行动。** 在动手改代码之前，必须先理解现状。盲目重构的风险极高。
 
-### 1.1 业务逻辑分析 (Business Logic Analysis)
+### 1.1 业务逻辑分析
 
 **目标：** 搞清楚"这段代码到底在干什么"。
 
@@ -44,7 +44,7 @@ Draft --(提交)--> Pending --(审核通过)--> Approved
 
 ---
 
-### 1.2 数据流分析 (Data Flow Analysis)
+### 1.2 数据流分析
 
 **目标：** 理解数据的来源、转换和流向，找出隐藏的依赖。
 
@@ -74,7 +74,7 @@ graph LR
 
 ---
 
-### 1.3 约束与依赖分析 (Constraint & Dependency Analysis)
+### 1.3 约束与依赖分析
 
 **目标：** 找出隐藏的耦合和约束，避免重构后引入 Bug。
 
@@ -109,7 +109,7 @@ graph LR
 
 ---
 
-## 阶段 2：优化思维框架 (Optimization Thinking)
+## 阶段 2：优化思维框架
 
 现在你已经理解了现状，接下来从哪些角度优化？
 
@@ -134,7 +134,6 @@ graph LR
 
 | 问题类型 | 检查点 | 优化手段 |
 |---------|--------|---------|
-| **过度渲染** | 组件是否因为父级状态变化而频繁重渲染？ | 使用 `React.memo`, `useMemo` |
 | **冗余请求** | 是否重复请求相同数据？ | 引入缓存机制 |
 | **计算阻塞** | 是否有同步的复杂计算阻塞 UI？ | 移到 Web Worker 或使用 `useDeferredValue` |
 
@@ -150,33 +149,33 @@ graph LR
 
 ---
 
-## 阶段 3：架构重设计 (Architectural Redesign)
+## 阶段 3：架构重设计
 
 基于分析和优化思维，设计新的架构。
 
-### 3.1 模块拆分思维 (Module Splitting)
+### 3.1 模块拆分思维
 
 #### 拆分维度：
 
-1. **按职责拆分 (By Responsibility)**
+1. **按职责拆分**
    - **原则：** 一个 Manager 只做一件事
    - **例子：** `UserProfile` -> `UserInfoManager` + `UserSettingsManager`
 
-2. **按数据域拆分 (By Data Domain)**
+2. **按数据域拆分**
    - **原则：** 不同的数据源对应不同的 Manager
    - **例子：** `Dashboard` -> `CampaignManager` + `MetricManager` + `ChartManager`
 
-3. **按生命周期拆分 (By Lifecycle)**
+3. **按生命周期拆分**
    - **原则：** 启动逻辑、运行逻辑、清理逻辑分离
    - **例子：** `AppBootstrap` -> `InitManager` + `AuthManager` + `ConfigManager`
 
-4. **按平台拆分 (By Platform)**
+4. **按平台拆分**
    - **原则：** 使用策略模式处理差异
    - **例子：** `AdsManager` -> `MetaAdsManager` + `TiktokAdsManager`
 
 ---
 
-### 3.2 职责划分矩阵 (Responsibility Matrix)
+### 3.2 职责划分矩阵
 
 为每个模块分配清晰的职责。**这是重构最关键的一步。**
 
@@ -194,7 +193,7 @@ graph LR
 
 ---
 
-### 3.3 协调机制设计 (Coordination Mechanism)
+### 3.3 协调机制设计
 
 模块之间如何通信？
 
@@ -211,7 +210,7 @@ graph LR
 
 ---
 
-## 阶段 4：实施重构 (Implementation)
+## 阶段 4：实施重构
 
 **原则：小步快跑，增量重构。** 不要一次性重写整个文件。
 
@@ -292,35 +291,35 @@ export class CampaignManager {
 
 ---
 
-## 阶段 5：质量保障 (Quality Assurance)
+## 阶段 5：质量保障
 
 **原则：重构后必须验证逻辑正确性。** 但验证方式要务实。
 
 ### 5.1 逻辑正确性验证思路
 
-#### 方法 1：对照检查 (Cross-Check)
+#### 方法 1：对照检查
 - 对照原业务流程图：重构后的代码路径是否一致？
 - 对照约束清单：所有约束是否都正确实现？
 - 对照数据流图：数据的转换链是否完整？
 
-#### 方法 2：回归测试 (Regression Testing)
+#### 方法 2：回归测试
 - 手动测试所有用户路径
 - 重点测试边界情况：空数组、null、undefined、极端数值
 
-#### 方法 3：代码审查 (Code Review)
+#### 方法 3：代码审查
 - 让同事审查重构后的代码
 - 关注点：是否引入了新的复杂度？是否破坏了原有逻辑？
 
 ---
 
-## 阶段 6：软件工程原则 (Engineering Principles)
+## 阶段 6：软件工程原则
 
-### 6.1 领域驱动设计 (DDD)
+### 6.1 领域驱动设计
 
 - **识别限界上下文 (Bounded Context)**：广告管理、指标分析、用户设置应该是不同的上下文。
 - **定义通用语言 (Ubiquitous Language)**：团队和代码使用一致的术语（如 "Campaign" 而不是混用 "广告系列/Ads"）。
 
-### 6.2 测试驱动思维 (TDD Mindset)
+### 6.2 测试驱动思维
 
 重构时，保持"可测试性"优先：
 1. 核心逻辑应该是纯函数或 Manager 类，而不是锁死在组件内
