@@ -46,6 +46,7 @@ description: Small Change 工作流程 - 小型功能调整或优化的标准流
 |------|-----------|-------------|
 | 需要新增筛选器 | 在 `FilterManager` 中添加新字段 | 在组件中用 `useState` 管理筛选状态 |
 | 需要调用新 API | 在 `api/` 目录下添加新函数 | 在组件中直接 `fetch()` |
+| 需要获取列表数据 | 使用 `PaginatedQueryManager`、`createAutoKeyMiniQueryClient` 等工具类 | 手动管理 loading/error 状态 |
 | 需要新增 UI 组件 | 在 `component/` 或 `block/` 中创建 | 在 Page 中内联一个大组件 |
 | 需要新增类型 | 在 `type.ts` 中添加类型定义 | 在组件中内联类型定义 |
 

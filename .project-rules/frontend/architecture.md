@@ -58,8 +58,132 @@ description: 架构设计指南 - Manager 模式、层次结构、依赖注入�
     *   `dispose()`: 清理监听器、关闭连接、取消定时器、重置状态。
 *   **DisposerManager：** 推荐使用 `DisposerManager` 来统一管理和自动清理副作用。
 
+### 4. 状态访问规范
 
-### 是一种组织方式
+**所有带状态的 Manager 类内部必须统一提供 `state` getter 和 `setState()` 方法**，作为状态读取和更新的唯一入口。
+
+**标准写法：**
+
+```ts
+export class MyManager {
+  // 定义初始状态类型
+  private readonly initialState = {
+    data: [],
+    filter: 'all',
+    loading: false,
+  };
+
+  // 创建 Zustand store
+  readonly store = createStore(
+    immer(combine(this.initialState, () => ({})))
+  );
+
+  // 统一的状态读取接口
+  get state() {
+    return this.store.getState();
+  }
+
+  // 统一的状态更新接口
+  setState(updater: (state: typeof this.initialState) => void) {
+    this.store.setState(updater);
+  }
+}
+```
+
+**使用示例：**
+
+```ts
+// 外部访问状态
+const currentData = manager.state.data;
+
+// 更新状态
+manager.setState((state) => {
+  state.filter = 'active';
+  state.loading = true;
+});
+```
+
+**重要说明：**
+
+1. **必须使用 immer 更新**：`setState` 内部使用 `immer`，可以直接修改 draft 对象
+2. **类型安全**：`updater` 参数类型使用 `typeof this.initialState`，确保类型一致
+3. **禁止直接访问 store**：外部应该通过 `manager.state` 而不是 `manager.store.getState()` 访问状态
+4. **统一接口**：所有 Manager 都应该提供这个接口，保持代码一致性
+
+### 5. 状态定义与使用原则
+
+**什么是状态？**
+
+状态是指**可以驱动视图更新的数据**，即当数据变化时需要触发组件重新渲染的数据。状态存储在 Zustand store 中，通过订阅机制实现响应式更新。
+
+**什么时候使用状态（Store），什么时候使用普通成员变量？**
+
+| 场景 | 使用方式 | 原因 |
+|------|---------|------|
+| 表单字段、列表数据 | **Store 状态** | 需要驱动 UI 更新，用户操作会改变数据 |
+| 加载状态、错误信息 | **Store 状态** | 视图需要显示加载/错误状态 |
+| 选项数据、筛选条件 | **Store 状态** | 变化后需要刷新相关 UI |
+| 配置数据（只读） | **普通变量** | 不需要触发重渲染，仅供内部计算使用 |
+| 一次性数据（如初始化参数） | **普通变量** | 仅在初始化时使用，不需要响应式更新 |
+| 事件上报参数 | **普通变量** | 内部使用，不涉及视图显示 |
+
+**判断标准：**
+
+问自己：**"这个数据变化后，视图需要重新渲染吗？"**
+- **是** → 使用 Store 状态
+- **否** → 使用普通成员变量
+
+**计算属性（Getter）的使用：**
+
+计算属性不是状态，而是基于状态计算得出的派生值。当状态更新驱动视图重新渲染时，计算属性函数会被重新调用。
+
+```ts
+// ✅ 正确：计算属性基于状态计算
+get filteredData() {
+  return this.state.data.filter(item => item.active);
+}
+
+// ❌ 错误：不要把派生值存为状态
+private filteredData: any[]; // 错误！应该用 getter
+```
+
+**常见反模式：**
+
+```ts
+// ❌ 反模式 1：把不需要驱动视图的数据放入状态（Store）
+readonly store = createStore(immer(combine({
+  config: {} as Config,  // 错误！配置数据是只读的，不需要放入状态
+}, () => ({}))));
+
+// ✅ 正确做法：配置数据用普通成员变量
+private readonly config: Config = {};
+
+// ================================================
+
+// ❌ 反模式 2：把派生值存为状态（Store）
+readonly store = createStore(immer(combine({
+  data: [] as any[],
+  totalCount: 0,  // 错误！totalCount 应该用 getter 计算
+}, () => ({}))));
+
+// ✅ 正确做法：派生值用计算属性
+get totalCount() {
+  return this.state.data.length;
+}
+
+// ================================================
+
+// ❌ 反模式 3：把临时变量放入状态（Store）
+readonly store = createStore(immer(combine({
+  tempValue: '',  // 错误！临时变量应该用局部变量
+}, () => ({}))));
+
+function someMethod() {
+  let tempValue = '';  // 正确！局部变量
+}
+```
+
+### 6. 是一种组织方式
 Manager模式是一种基于面向对象的逻辑组织方式，不仅限于页面
 * 对于纯组件，内部逻辑如果比较重（大量useCallback、useMemo或复杂的业务逻辑），也都可以使用Manager模式，只不过对外表现的和普通纯组件一样
 * 对于业务复用组件，比如内部去获取网络数据（比如用户信息这类通用的），都应该使用Manager 模式组织（有自己的ViewController），但是对外表现的和普通组件一样，通过props传入参数

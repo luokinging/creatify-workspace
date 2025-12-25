@@ -40,6 +40,7 @@ description: Complete Feature 工作流程 - 全新功能模块开发的标准�
 - 描述数据流：数据来源 -> 转换 -> 存储 -> 使用
 - 列出所有需要的类型定义（Type/Interface）
 - 描述状态管理方案（哪些用 Zustand Store，哪些用 CombinedStore）
+- **工具复用：优先使用 `PaginatedQueryManager`、`createAutoKeyMiniQueryClient` 等工具类管理数据获取，参考 `.project-rules/frontend/utility-managers.md`**
 
 **1.3.3 接口定义**
 - 定义所有 Manager 的接口（Interface）
@@ -126,6 +127,7 @@ description: Complete Feature 工作流程 - 全新功能模块开发的标准�
 
 ### 阶段 1：数据层实现
 - 实现所有 API 调用函数（在 `api/` 目录）
+- **工具复用：数据获取优先使用 `PaginatedQueryManager`、`createAutoKeyMiniQueryClient` 等工具类**
 - 实现 Manager 的数据获取逻辑
 - 实现状态管理（Zustand Store 或 CombinedStore）
 - 运行类型检查确保数据层正确
