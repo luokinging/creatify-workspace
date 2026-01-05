@@ -1,6 +1,6 @@
-请根据下面的规范和示例为我在 webserver 仓库执行（前端代码位于 webserver/frontend/）
+请根据下面的规范和示例为我在 webserver 仓库执行
 
-1. 进入 webserver 仓库（前端代码位于 webserver/frontend/）
+1. 进入 webserver 仓库
 2. 分析diff得到commit信息
 3. 分析与main分支的区别得到PR信息
 4. 严格在分析完commit + pr，执行 commit + pr 之前，review你分析得出的 commit 和 PR 描述，在严格确保满足下面的规范以后再执行 commit + create PR
