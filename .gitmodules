@@ -1,6 +1,3 @@
 [submodule "webserver"]
 	path = webserver
 	url = git@github-creatify:creatify-ai/webserver.git
-[submodule "main-web-ui"]
-	path = main-web-ui
-	url = git@github-creatify:creatify-ai/main-web-ui.git
