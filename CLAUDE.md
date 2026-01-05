@@ -4,12 +4,12 @@
 
 This is a monorepo containing the web front-end and back-end for the Creatify application.
 
-*   **`main-web-ui/`**: A [React](https://react.dev/) application built with [Vite](https://vitejs.dev/). It uses [TanStack Router](https://tanstack.com/router) for routing, [Redux Toolkit](https://redux-toolkit.js.org/) and [Zustand](https://zustand-demo.pmnd.rs/) for state management, and [Vitest](https://vitest.dev/) for testing.
-*   **`webserver/`**: A [Python](https://www.python.org/) back-end built with the [Django](https://www.djangoproject.com/) framework. It uses [pytest](https://pytest.org/) for testing and [Ruff](https://beta.ruff.rs/) for linting and formatting.
+*   **`webserver/frontend/`**: A [React](https://react.dev/) application built with [Vite](https://vitejs.dev/). It uses [TanStack Router](https://tanstack.com/router) for routing, [Redux Toolkit](https://redux-toolkit.js.org/) and [Zustand](https://zustand-demo.pmnd.rs/) for state management, and [Vitest](https://vitest.dev/) for testing.
+*   **`webserver/backend/`**: A [Python](https://www.python.org/) back-end built with the [Django](https://www.djangoproject.com/) framework. It uses [pytest](https://pytest.org/) for testing and [Ruff](https://beta.ruff.rs/) for linting and formatting.
 
 ## Building and Running
 
-### `main-web-ui` (Frontend)
+### `webserver/frontend` (Frontend)
 
 *   **Install dependencies:**
     ```bash
@@ -32,7 +32,7 @@ This is a monorepo containing the web front-end and back-end for the Creatify ap
     bun run build
     ```
 
-### `webserver` (Backend)
+### `webserver/backend` (Backend)
 
 *   **Activate virtual environment:**
     ```bash
@@ -50,14 +50,14 @@ This is a monorepo containing the web front-end and back-end for the Creatify ap
 
 ## Development Conventions
 
-### `main-web-ui` (Frontend)
+### `webserver/frontend` (Frontend)
 
 *   **Linting:** This project uses ESLint and Biome for code quality. Run `bun run lint` to check for issues.
 *   **Routing:** Routes are managed with TanStack Router. Use `bun run generate-routes` to generate routes.
 *   **State Management:** The project uses both Redux Toolkit and Zustand for state management. Refer to the existing code for usage patterns.
 *   **Storybook:** The project uses Storybook for UI component development and testing. Run `bun run story-dev` to start the Storybook server.
 
-### `webserver` (Backend)
+### `webserver/backend` (Backend)
 
 *   **Testing:** All new functionality should be accompanied by unit tests. All tests must pass before merging to the `main` branch.
 *   **Linting and Formatting:** This project uses Ruff for linting and formatting. Ensure all checks pass before committing code.

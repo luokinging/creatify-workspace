@@ -10,9 +10,9 @@ trigger: always_on
 
 Before starting any task, identify the task type:
 
-- **Frontend**: Tasks involving `main-web-ui/` directory
-- **Backend**: Tasks involving `webserver/` directory
-- **Fullstack**: Tasks spanning both `main-web-ui/` and `webserver/`
+- **Frontend**: Tasks involving `webserver/frontend/` directory
+- **Backend**: Tasks involving `webserver/backend/` directory
+- **Fullstack**: Tasks spanning both `webserver/frontend/` and `webserver/backend/`
 
 ## Mandatory Rule Reading Protocol
 

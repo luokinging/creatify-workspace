@@ -18,7 +18,7 @@
 1. **解析用户输入**
    - 识别用户描述中的多个需求点（可能用序号、换行、分号等分隔）
    - 区分需求类型：bugfix、功能更改、新功能、重构等
-   - 识别涉及的技术栈：前端（main-web-ui）、后端（webserver）、全栈
+   - 识别涉及的技术栈：前端（webserver/frontend）、后端（webserver/backend）、全栈
    - **识别可拆分的需求**：
      - 如果需求包含多个可以独立完成的功能模块
      - 如果需求包含可以并行开发的部分
@@ -91,9 +91,9 @@
    - 按照以下分类组织：
      - **前端规则**：`.project-rules/frontend/` 下的规则文档路径及说明
      - **后端规则**：`.project-rules/backend/` 下的规则文档路径及说明
-     - **前端Code Point**：`main-web-ui/` 下的相关代码文件路径
+     - **前端Code Point**：`webserver/frontend/` 下的相关代码文件路径
      - **前端路由**：前端路由路径
-     - **后端Code Point**：`webserver/` 下的相关代码文件路径
+     - **后端Code Point**：`webserver/backend/` 下的相关代码文件路径
      - **其他**：其他相关资源（API文档、第三方库等）
 
 4. **识别注意点**
@@ -141,14 +141,14 @@
    - `.project-rules/backend/index.md` - [一句话说明]
    
    前端Code Point:
-   - `main-web-ui/feature/xxx/` - [一句话说明]
-   - `main-web-ui/component/xxx.tsx` - [一句话说明]
+   - `webserver/frontend/feature/xxx/` - [一句话说明]
+   - `webserver/frontend/component/xxx.tsx` - [一句话说明]
    
    前端路由:
    - `/workspace/projects` - [一句话说明]
    
    后端Code Point:
-   - `webserver/api/xxx.py` - [一句话说明]
+   - `webserver/backend/api/xxx.py` - [一句话说明]
    
    其他:
    - [其他相关资源]
@@ -202,7 +202,7 @@
 - `.project-rules/frontend/workflow-feature-update.md` - Feature Update 工作流程
 
 前端Code Point:
-- `main-web-ui/feature/user-list/` - 用户列表相关代码
+- `webserver/frontend/feature/user-list/` - 用户列表相关代码
 
 前端路由:
 - `/users` - 用户列表路由
@@ -246,7 +246,7 @@
 - `.project-rules/frontend/workflow-bugfix.md` - Bugfix 工作流程
 
 前端Code Point:
-- `main-web-ui/feature/user-list/` - 用户列表相关代码
+- `webserver/frontend/feature/user-list/` - 用户列表相关代码
 
 前端路由:
 - `/users` - 用户列表路由
@@ -275,7 +275,7 @@
 - `.project-rules/frontend/workflow-feature-update.md` - Feature Update 工作流程
 
 前端Code Point:
-- `main-web-ui/feature/creative-management/` - 广告创意管理相关代码
+- `webserver/frontend/feature/creative-management/` - 广告创意管理相关代码
 
 前端路由:
 - `/creative-management` - 广告创意管理路由
@@ -306,13 +306,13 @@
 - `.project-rules/frontend/workflow-feature-update.md` - Feature Update 工作流程
 
 前端Code Point:
-- `main-web-ui/feature/creative-management/` - 广告创意管理相关代码
+- `webserver/frontend/feature/creative-management/` - 广告创意管理相关代码
 
 前端路由:
 - `/creative-management` - 广告创意管理路由
 
 后端Code Point:
-- `webserver/api/export.py` - 导出功能 API（如果需要后端支持）
+- `webserver/backend/api/export.py` - 导出功能 API（如果需要后端支持）
 
 ## 注意点
 
