@@ -95,4 +95,6 @@ description: AI Agent 规则文档索引 - 列出必须阅读的文档和可选�
    - 遵循对应的工作流程
    - 参考架构设计指南
    - 根据任务需要参考可选文档（如目录结构规范、反模式等）
+   - 代码格式化统一进入前端目录使用 bun biome:fix
+   - 代码修改完成需要执行bun precommit进行typescript检查
 ---
