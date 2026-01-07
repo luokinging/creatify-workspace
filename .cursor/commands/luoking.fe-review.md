@@ -2,8 +2,8 @@
 description: Frontend code review
 ---
 
-1. 检查 webserver/frontend/ 目录下，当前未提交的代码更改
-2. 读取 `.project-rules/frontend/index.md` 规则入口文件提到的所有可读和必读文件，检查是否符合项目规范
+1. cd 进入 webserver仓库（submodule），查看当前未提交的代码更改，只需要处理 /frontend/ 目录下的文件更改
+2. 读取 `.project-rules/frontend/index.md` 规则入口文件提到的所有可读和必读文件（注意是所有文件），逐个分析，检查是否符合项目规范
 3. 如果符合项目规范则回复符合规范，如果不符合项目规范则找出不符合规范的文件，并列出来哪些地方不符合规范，覆盖的方式输出在 .doc/review.md
 
 review意见模版：

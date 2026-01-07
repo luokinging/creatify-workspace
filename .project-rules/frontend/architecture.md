@@ -29,14 +29,14 @@ description: 架构设计指南 - Manager 模式、层次结构、依赖注入�
         *   **状态更新：** 内部维护 Zustand store 或其他状态容器。
         *   **业务规则：** 校验、计算、转换数据。
         *   **事件处理：** 响应用户操作或系统事件。
-    *   **生命周期：** 必须实现 `bootstrap(...)` (初始化) 和 `dispose()` (销毁) 方法。
+    *   **生命周期：** 必须实现 `bootstrap(...)` (初始化) 和 `dispose()` (销毁) 方法，从bootstrap触发的附属方法使用 `bootstrapXxx` 的命名方式而不是 `initXxx`。
 
 3.  **Reconciler (`*.manager/view-controller.ts`)**：
     *   **角色：** 高级协调者 (Orchestrators)。
     *   **职责：** 协调多个 Manager，处理跨领域的复杂业务流程。Reconciler 通常不直接持有 UI 状态，而是管理 Manager 的生命周期或处理全局性的事务。
     *   **特征：** 命名通常以 ViewController结尾，比如 XxxViewController
     *   **依赖：** 可以通过构造函数注入 Service 和 Manager。
-    *   **生命周期：** 必须实现 `bootstrap(...)` (初始化) 和 `dispose()` (销毁) 方法。
+    *   **生命周期：** 必须实现 `bootstrap(...)` (初始化) 和 `dispose()` (销毁) 方法，从bootstrap触发的附属方法使用 `bootstrapXxx` 的命名方式而不是 `initXxx`。
 
 4.  **UI Components (`*.tsx`)**：
     *   **角色：** 纯展示层 (Pure Presentation)。
@@ -459,6 +459,90 @@ export function ExamplePageContent() {
     </div>
   );
 }
+```
+
+#### ViewController 中使用 Ref 的规范
+
+**对于 ViewController，需要使用 ref 的地方（DOM element、组件实例等），应该使用 `vc.setXxxEl` / `vc.setXxxRef` 的方式来接收组件的 ref。**
+
+**基本用法：**
+
+```ts
+// manager/example-view-controller.ts
+export class ExampleViewController {
+  private containerRef: HTMLElement | null = null;
+  
+  setContainerEl(el: HTMLElement | null) {
+    this.containerRef = el;
+    if (el) {
+      // ref 设置后可以立即执行操作，不需要等待 useEffect
+      el.scrollTo({ top: 0 });
+    }
+  }
+}
+```
+
+```tsx
+// 组件中使用
+<div ref={(el) => vc.setContainerEl(el)} />
+```
+
+**事件监听场景：**
+
+当需要添加事件监听器时，为每个 ref 单独定义 DisposerManager，在 `setXxxEl` 中先清除旧的监听，再添加新的监听：
+
+```ts
+// manager/example-view-controller.ts
+import { DisposerManager } from "@/manager/disposer-manager";
+
+export class ExampleViewController {
+  private readonly disposerManager = new DisposerManager();
+  private readonly containerElDisposerManager = new DisposerManager();
+  private containerRef: HTMLElement | null = null;
+  
+  setContainerEl(el: HTMLElement | null) {
+    // 先清除旧的监听
+    this.containerElDisposerManager.dispose();
+    
+    this.containerRef = el;
+    
+    if (el) {
+      const handleScroll = () => this.handleContainerEl(el);
+      el.addEventListener('scroll', handleScroll);
+      
+      this.containerElDisposerManager.addDisposeFn(() => {
+        el.removeEventListener('scroll', handleScroll);
+      });
+    }
+  }
+  
+  private handleContainerEl(el: HTMLElement) {
+    // 处理逻辑
+  }
+  
+  dispose() {
+    this.containerElDisposerManager.dispose();
+    this.disposerManager.dispose();
+  }
+}
+```
+
+**关键点：**
+
+1. 避免 `useRef + useEffect` 的时序问题，ref 设置后可以立即使用
+2. 事件监听：为每个 ref 单独定义 DisposerManager，先清除旧监听再添加新监听
+3. 在 `dispose()` 中统一清理
+
+**反模式：**
+
+```tsx
+// ❌ 错误：使用 useRef + useEffect，存在时序问题
+const containerRef = useRef<HTMLDivElement>(null);
+useEffect(() => {
+  if (containerRef.current) {
+    containerRef.current.scrollTo({ top: 0 });
+  }
+}, []);
 ```
 
 ### 4. 模块间交互原则

@@ -40,6 +40,8 @@ description: AI Agent 规则文档索引 - 列出必须阅读的文档和可选�
 
 - **[组件使用规范](./component-usage.md)** - 优先使用项目内部组件库（`webserver/frontend/component/ui`），其次使用 shadcn 提供的组件
 
+- **[编码规范](./coding-conventions.md)** - 组件 Props 解构、函数签名等代码风格约定
+
 - **[请求相关注意事项](./request-notes.md)** - 使用 `createAutoKeyMiniClient`、`PaginatedQueryManager`、`useAutoKeyQuery` 等 API 时的注意事项和常见陷阱
 
 - **[实战案例与设计模式](./examples.md)** - 增加 feature 和大 feature 更新时，需要参考真实案例和设计模式
