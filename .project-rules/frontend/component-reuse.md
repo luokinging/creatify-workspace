@@ -171,3 +171,259 @@ class MyViewController {
 - 所有交互都基于接口，实现真正的解耦
 
 **参考实现**：`FlexibleDropdown`（`webserver/frontend/component/ui/dropdown/flexible-dropdown/`）
+
+---
+
+## 组件解耦重构方法
+
+当需要将已耦合的组件抽取为可复用组件时，按以下步骤进行：
+
+### 步骤 1：识别耦合类型
+
+分析组件当前的依赖，区分两类耦合：
+
+| 耦合类型 | 示例 | 处理方式 |
+|---------|------|---------|
+| **全局耦合**（保留） | `useMushroomController`、`useService` | 直接使用，无需抽取 |
+| **局部耦合**（移除） | `useProjectDetailViewController`、页面级 Provider | 通过 props 传入或独立管理 |
+
+**判断标准**：组件移动到其他位置后，该依赖是否仍然可用？可用则保留，否则需移除。
+
+---
+
+### 步骤 2：创建独立 ViewController
+
+为可复用组件创建自己的 ViewController，接管组件的业务逻辑：
+
+```typescript
+// 1. 定义接口，暴露给外部使用
+export interface IVideoPreviewPanelManager {
+  readonly combinedStore: CombinedStore<ReadonlyStoreApi<unknown>[]>;
+  get mediaManager(): IMediaPlayer | null;
+}
+
+// 2. ViewController 实现该接口
+export class PreviewPanelViewController implements IVideoPreviewPanelManager {
+  readonly store = createStore(immer(combine(initialState, () => ({}))));
+  mediaManager: IMediaPlayer | null = null;
+
+  private disposerManager = new DisposerManager();
+
+  get combinedStore() {
+    return createCombinedStore([this.store, this.mediaManager?.store].filter(Boolean));
+  }
+
+  setMediaManager(mediaManager: IMediaPlayer | null) {
+    this.mediaManager = mediaManager;
+  }
+
+  updateOptions(options: VideoPreviewContentTestOptions) {
+    this.store.setState((state) => {
+      state.assetId = options.assetId;
+    });
+  }
+
+  bootstrap() {
+    // 初始化逻辑
+  }
+
+  dispose() {
+    this.disposerManager.dispose();
+  }
+}
+```
+
+**关键点**：
+- ViewController 实现接口，供外部类型约束使用
+- 内部管理自己的 store、disposer、queryClient 等资源
+- 提供 `updateOptions` 接收外部配置变化
+
+---
+
+### 步骤 3：组件内管理 ViewController 生命周期
+
+组件内部创建并管理自己的 vc 实例：
+
+```typescript
+export function VideoPreviewPanel(props: VideoPreviewPanelProps) {
+  const { assetId, onManagerReady } = props;
+
+  // 创建 vc 实例（useState 确保组件生命周期内唯一）
+  const [vc] = useState(() => new PreviewPanelViewController());
+
+  // 初始化和清理
+  useEffect(() => {
+    vc.bootstrap();
+    return () => {
+      vc.dispose();
+    };
+  }, [vc]);
+
+  // 响应 props 变化
+  useEffect(() => {
+    vc.updateOptions({ assetId });
+  }, [vc, assetId]);
+
+  // ...
+}
+```
+
+**为什么用 useState 而非 useRef**：
+- useState 确保 vc 在组件挂载时创建一次
+- 如果 vc 的销毁和重建需要依赖某些条件变化，可以通过 setState 触发
+
+---
+
+### 步骤 4：定义组件 Props，解耦输入输出
+
+**输入（Props In）**：外部通过 props 传入配置数据
+
+**输出（Props Out）**：通过 callback 暴露内部能力
+
+```typescript
+export type VideoPreviewPanelProps = {
+  // 输入：配置数据
+  assetId: string;
+  versionId?: string;
+  className?: string;
+
+  // 输出：暴露内部能力的 callback
+  onManagerReady?: (manager: IMediaPlayer) => void;
+};
+```
+
+**命名建议**：
+- 输入：直接用数据名（`assetId`、`versionId`）
+- 输出：用 `on` + 动作词（`onManagerReady`、`onStateChanged`）
+
+---
+
+### 步骤 5：通过 Callback 暴露内部能力
+
+组件内部通过 callback 将自己的 manager 或状态暴露给外部：
+
+```typescript
+export function VideoPreviewPanel(props: VideoPreviewPanelProps) {
+  const { assetId, onManagerReady } = props;
+  const [vc] = useState(() => new PreviewPanelViewController());
+
+  return (
+    <VideoDisplayer
+      getMediaManager={(mng) => {
+        // 1. 内部保存引用
+        vc.setMediaManager(mng);
+
+        // 2. 通过 callback 暴露给外部
+        onManagerReady?.(mng);
+      }}
+    />
+  );
+}
+```
+
+**外部使用**：
+
+```typescript
+// 外部组件
+export function ParentComponent() {
+  const handleManagerReady = (manager: IMediaPlayer) => {
+    // 拿到内部 manager，可以调用其方法
+    manager.play();
+    manager.pause();
+  };
+
+  return <VideoPreviewPanel assetId="xxx" onManagerReady={handleManagerReady} />;
+}
+```
+
+**暴露能力的类型**：
+1. **Manager 接口**：暴露内部 manager，让外部调用方法（如 `IMediaPlayer`）
+2. **状态变化通知**：通过 callback 通知外部状态变化（如 `onStateChanged`）
+3. **ViewController 接口**：直接暴露 vc 的接口（如 `IVideoPreviewPanelManager`）
+
+---
+
+### 步骤 6：单一状态来源
+
+组件内部状态统一从自己的 vc 读取，避免多处读取：
+
+```typescript
+export function VideoPreviewPanel(props: VideoPreviewPanelProps) {
+  const [vc] = useState(() => new PreviewPanelViewController());
+
+  // 从 vc 的 combinedStore 读取状态
+  const { videoUrl } = useCombinedStore(vc.combinedStore, () => ({
+    videoUrl: vc.videoUrl,
+  }));
+
+  return (
+    <VideoDisplayer src={videoUrl || ''} />
+  );
+}
+```
+
+**vc.combinedStore 的组成**：
+- vc 自己的 store（组件状态）
+- queryClient 的 store（请求状态）
+- 内部 manager 的 store（如 mediaManager.store）
+
+---
+
+### 完整示例对比
+
+#### 重构前（耦合）
+
+```typescript
+// 依赖多个外部 context
+const vc = useProjectDetailViewController();
+const assetPreviewVC = useAssetPreviewViewController();
+const mushroomController = useMushroomController();
+
+// 从多个地方读取状态
+const asset = useCombinedStore(assetPreviewVC.combinedStore, () => {
+  return assetPreviewVC.assetPreviewDataManager.getAsset();
+});
+
+// 直接调用外部 manager
+const handleDownload = async () => {
+  await vc.fileContainerManager.downloadNode(asset);
+};
+```
+
+#### 重构后（解耦）
+
+```typescript
+// 组件内部创建自己的 vc
+const [vc] = useState(() => new PreviewPanelViewController());
+
+// 只从自己的 vc 读取状态
+const { videoUrl } = useCombinedStore(vc.combinedStore, () => ({
+  videoUrl: vc.videoUrl,
+}));
+
+// 通过 callback 暴露能力
+<VideoDisplayer
+  getMediaManager={(mng) => {
+    vc.setMediaManager(mng);
+    props.onManagerReady?.(mng);  // 暴露给外部
+  }}
+/>
+```
+
+---
+
+### 关键原则总结
+
+1. **组件内部状态由自己的 vc 统一管理**：避免从多个外部 context 读取状态
+2. **输入通过 props，输出通过 callback**：明确数据流向
+3. **组件完整管理自己的生命周期**：bootstrap/dispose 由组件自己控制
+4. **通过接口暴露能力**：外部通过接口类型约束，避免直接依赖实现
+5. **保留全局依赖，移除局部依赖**：模块级 Controller 可保留，页面级 context 需移除
+
+---
+
+### 参考示例
+
+- **重构前**：`asset-preview-content.tsx`（依赖外部 context）
+- **重构后**：`video-preview-panel.tsx`（独立 ViewController + callback 暴露能力）
+- **ViewController**：`preview/video-preview-content-test-view-controller.ts`（实现 `IVideoPreviewPanelManager` 接口）
