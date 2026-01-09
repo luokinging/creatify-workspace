@@ -149,8 +149,67 @@ setTimeout(() => dialogHandler.close(), 1000);
 // 如果用户取消 Dialog，会自动抛出错误中断流程，无需手动 try-catch
 ```
 
+## 写法规范
+
+### 禁止的用法
+
+**禁止在其他组件中直接使用 Dialog 组件，组件应该和视图隔离。**
+
+以下用法是**禁止**的：
+
+```typescript
+// ❌ 错误：直接在组件中控制 Dialog 状态
+function MyComponent() {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+      <XxxDialog open={isOpen} onOpenChange={setIsOpen} />
+    </>
+  );
+}
+
+// ❌ 错误：使用条件渲染控制 Dialog
+function MyComponent() {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+      {isOpen && <XxxDialog />}
+    </>
+  );
+}
+```
+
+### 正确的用法
+
+应该通过 `dialogManager.show()` 来打开 Dialog，保持组件和视图的隔离：
+
+```typescript
+// ✅ 正确：通过 dialogManager 打开 Dialog
+function MyComponent() {
+  const handleOpenDialog = async () => {
+    await dialogManager.show(XxxDialog, {
+      // props
+    });
+  };
+  
+  return (
+    <Button onClick={handleOpenDialog}>Open Dialog</Button>
+  );
+}
+```
+
+**原因：**
+- Dialog 组件应该通过统一的 `dialogManager` 管理，而不是在视图组件中手动控制状态
+- 保持视图组件和 Dialog 的隔离，避免状态管理的复杂性
+- 统一的生命周期管理，确保 Dialog 正确打开和关闭
+
 ## 约束条件
 
 1. **不要在全局变量初始化时同步调用**：Service 初始化需要时间，可能导致 Dialog 无法正常显示
 2. **优先使用预设组件**：预设组件符合设计标准，减少样式问题
 3. **用户取消自动中断流程**：直接 `await dialogManager.show()` 即可，用户取消会自动抛出错误中断后续流程，无需手动 try-catch
+4. **禁止在组件中直接使用 Dialog**：必须通过 `dialogManager.show()` 打开 Dialog，保持组件和视图隔离
