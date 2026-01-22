@@ -24,3 +24,8 @@ Make sure to add ~/.bunv/bin to your PATH
 ```
 bun install --ignore-scripts
 ```
+
+# 提交commit之前
+跳过precommit检查，自己保证precommit没有问题
+git commit -n
+
