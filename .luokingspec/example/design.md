@@ -197,5 +197,3 @@ webserver/backend/api/projects/
 - `.project-rules/frontend/mvc-architecture.md` - MVC 架构模式
 - `.project-rules/frontend/utility-managers.md` - 工具管理器使用指南
 - `.project-rules/backend/index.md` - 后端开发规范
-- TanStack Router 文档：https://tanstack.com/router
-- TanStack Query 文档：https://tanstack.com/query

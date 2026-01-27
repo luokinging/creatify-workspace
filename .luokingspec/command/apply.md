@@ -43,11 +43,15 @@
    - 按照需求描述和 Checklist 逐项实现
    - 遵循项目架构和代码规范
 
-### 第三步：更新 Checklist
+### 第三步：检查任务完成情况
 
-1. **完成 Checklist 项**
+1. **检查 Scenarios**
+
+- 从代码层面检查Task的全部 `Scenario` 是否没问题
+
+2. **完成 Checklist 项**
    - 每完成一个 Checklist 项，在 `.luokingspec/changes/<change-id>/task.md` 中更新状态：`- [x]`
    - 保持未完成项为：`- [ ]`
 
-2. **确认完成**
+3. **确认完成**
    - 所有 Checklist 项完成后，标记需求已完成
