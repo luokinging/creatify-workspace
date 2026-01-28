@@ -77,14 +77,14 @@
 
 ## Checklist
 
-- [ ] C-001 ICreatifyHostController 接口添加新方法定义
-- [ ] C-002 CreatifyHostController 实现 getMode() 方法
-- [ ] C-003 CreatifyHostController 实现 registerExportFn() 方法
-- [ ] C-004 CreatifyHostController 实现 registerUpdateFn() 方法
-- [ ] C-005 添加函数存储的 Map 结构
-- [ ] C-006 TypeScript 类型定义正确
-- [ ] C-007 保持向后兼容，现有功能不受影响
-- [ ] C-008 添加相关注释说明用法
+- [x] C-001 ICreatifyHostController 接口添加新方法定义
+- [x] C-002 CreatifyHostController 实现 getMode() 方法
+- [x] C-003 CreatifyHostController 实现 registerExportFn() 方法
+- [x] C-004 CreatifyHostController 实现 registerUpdateFn() 方法
+- [x] C-005 添加函数存储的 Map 结构
+- [x] C-006 TypeScript 类型定义正确
+- [x] C-007 保持向后兼容，现有功能不受影响
+- [x] C-008 添加相关注释说明用法
 
 ---
 
@@ -175,13 +175,13 @@
 
 ## Checklist
 
-- [ ] C-001 路由文件创建完成
-- [ ] C-002 页面组件创建完成
-- [ ] C-003 Single 模式卡片正确显示和跳转
-- [ ] C-004 Batch 模式卡片正确显示和跳转
-- [ ] C-005 卡片样式与参考页面一致
-- [ ] C-006 页面响应式设计正确
-- [ ] C-007 浏览器前进后退功能正常
+- [x] C-001 路由文件创建完成
+- [x] C-002 页面组件创建完成
+- [x] C-003 Single 模式卡片正确显示和跳转
+- [x] C-004 Batch 模式卡片正确显示和跳转
+- [x] C-005 卡片样式与参考页面一致
+- [x] C-006 页面响应式设计正确
+- [x] C-007 浏览器前进后退功能正常
 
 ---
 
@@ -259,13 +259,13 @@
 
 ## Checklist
 
-- [ ] C-001 路由文件创建完成
-- [ ] C-002 BatchListViewController 创建完成
-- [ ] C-003 页面基础布局实现（标题 + New 按钮）
-- [ ] C-004 静态 mock 数据创建
-- [ ] C-005 列表项基础结构实现
-- [ ] C-006 New 按钮跳转功能实现
-- [ ] C-007 页面样式与设计稿一致
+- [x] C-001 路由文件创建完成
+- [x] C-002 BatchListViewController 创建完成
+- [x] C-003 页面基础布局实现（标题 + New 按钮）
+- [x] C-004 静态 mock 数据创建
+- [x] C-005 列表项基础结构实现
+- [x] C-006 New 按钮跳转功能实现
+- [x] C-007 页面样式与设计稿一致
 
 ---
 
@@ -354,15 +354,15 @@
 
 ## Checklist
 
-- [ ] C-001 BatchListItem 组件创建完成
-- [ ] C-002 PreviewIframeItem 组件创建完成
-- [ ] C-003 左侧信息区域正确显示
-- [ ] C-004 右侧预览区域正确显示
-- [ ] C-005 View all 按钮跳转功能实现
-- [ ] C-006 Download 按钮功能实现
-- [ ] C-007 iframe PreviewOnly 模式设置正确
-- [ ] C-008 HorizontalScrollArea 正确集成
-- [ ] C-009 加载状态和错误处理
+- [x] C-001 BatchListItem 组件创建完成
+- [x] C-002 PreviewIframeItem 组件创建完成
+- [x] C-003 左侧信息区域正确显示
+- [x] C-004 右侧预览区域正确显示
+- [x] C-005 View all 按钮跳转功能实现
+- [x] C-006 Download 按钮功能实现
+- [x] C-007 iframe PreviewOnly 模式设置正确
+- [x] C-008 HorizontalScrollArea 正确集成
+- [x] C-009 加载状态和错误处理
 
 ---
 
@@ -469,16 +469,16 @@
 
 ## Checklist
 
-- [ ] C-001 路由文件创建完成
-- [ ] C-002 NewBatchViewController 创建完成
-- [ ] C-003 页面表单布局实现
-- [ ] C-004 动态添加输入行功能
-- [ ] C-005 删除输入行功能
-- [ ] C-006 输入验证（URL 格式、Size 范围）
-- [ ] C-007 行数限制（最多 5 行、最少 1 行）
-- [ ] C-008 Generate 按钮功能和跳转
-- [ ] C-009 加载状态显示
-- [ ] C-010 页面样式与设计稿一致
+- [x] C-001 路由文件创建完成
+- [x] C-002 NewBatchViewController 创建完成
+- [x] C-003 页面表单布局实现
+- [x] C-004 动态添加输入行功能
+- [x] C-005 删除输入行功能
+- [x] C-006 输入验证（URL 格式、Size 范围）
+- [x] C-007 行数限制（最多 5 行、最少 1 行）
+- [x] C-008 Generate 按钮功能和跳转
+- [x] C-009 加载状态显示
+- [x] C-010 页面样式与设计稿一致
 
 ---
 
@@ -573,16 +573,16 @@
 
 ## Checklist
 
-- [ ] C-001 路由文件创建完成
-- [ ] C-002 BatchPreviewViewController 创建完成
-- [ ] C-003 URL 参数解析正确
-- [ ] C-004 预览项网格布局实现
-- [ ] C-005 多个 CreatifyHostController 实例管理
-- [ ] C-006 PreviewOnly 模式设置正确
-- [ ] C-007 批量下载功能实现
-- [ ] C-008 加载状态和错误处理
-- [ ] C-009 页面响应式设计
-- [ ] C-010 页面样式与设计稿一致
+- [x] C-001 路由文件创建完成
+- [x] C-002 BatchPreviewViewController 创建完成
+- [x] C-003 URL 参数解析正确
+- [x] C-004 预览项网格布局实现
+- [x] C-005 多个 CreatifyHostController 实例管理
+- [x] C-006 PreviewOnly 模式设置正确
+- [x] C-007 批量下载功能实现
+- [x] C-008 加载状态和错误处理
+- [x] C-009 页面响应式设计
+- [x] C-010 页面样式与设计稿一致
 
 ---
 
@@ -661,7 +661,7 @@
 **功能要求**：
 - 调用后端 API 获取生成数据
 - 通过 hostController 的注册函数传递数据
-- 每个 iframe 独立接收和处理数据
+- 每个 iframe 独立接收和处理数据以及hostController实例
 - 使用现有 API（generateCreativeSuggestionsV2）
 
 ## 相关指引
