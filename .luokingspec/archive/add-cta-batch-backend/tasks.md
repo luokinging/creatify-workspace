@@ -53,13 +53,13 @@
 
 ## Checklist
 
-- [ ] C-001 `CTABulkGenerateTask` Model 创建完成，包含所有必需字段（id, created_at, updated_at, user, workspace, name, status, error_message）
-- [ ] C-002 `CTAIFramePreview` Model 创建完成，包含所有必需字段（id, created_at, updated_at, workspace, bulk_generate_task, product, prefill, status, error_message）
-- [ ] C-003 外键关系正确配置（bulk_generate_task → CTABulkGenerateTask CASCADE, product → ECommerceProduct CASCADE）
-- [ ] C-004 `CTAIFramePreview.workspace` 冗余字段添加，与 `bulk_generate_task.workspace` 语义一致
-- [ ] C-005 数据库索引添加（workspace, bulk_generate_task, product 相关索引）
-- [ ] C-006 Meta 配置正确（verbose_name, ordering）
-- [ ] C-007 `__str__` 方法正确实现
+- [x] C-001 `CTABulkGenerateTask` Model 创建完成，包含所有必需字段（id, created_at, updated_at, user, workspace, name, status, error_message）
+- [x] C-002 `CTAIFramePreview` Model 创建完成，包含所有必需字段（id, created_at, updated_at, workspace, bulk_generate_task, product, prefill, status, error_message）
+- [x] C-003 外键关系正确配置（bulk_generate_task → CTABulkGenerateTask CASCADE, product → ECommerceProduct CASCADE）
+- [x] C-004 `CTAIFramePreview.workspace` 冗余字段添加，与 `bulk_generate_task.workspace` 语义一致
+- [x] C-005 数据库索引添加（workspace, bulk_generate_task, product 相关索引）
+- [x] C-006 Meta 配置正确（verbose_name, ordering）
+- [x] C-007 `__str__` 方法正确实现
 
 ---
 
@@ -125,12 +125,12 @@
 
 ## Checklist
 
-- [ ] C-001 `CTABulkGenerateTaskSerializer` 创建完成，包含所有必需字段
-- [ ] C-002 `progress` 字段使用 `SerializerMethodField` 实现实时计算
-- [ ] C-003 `CTAIFramePreviewSerializer` 创建完成，包含所有必需字段
-- [ ] C-004 `prefill` 字段使用 `JSONField`，支持读写
-- [ ] C-005 创建批量任务时的 Request Serializer 验证规则正确（sources 非空，batch_size 范围）
-- [ ] C-006 验证失败时返回明确的错误信息
+- [x] C-001 `CTABulkGenerateTaskSerializer` 创建完成，包含所有必需字段
+- [x] C-002 `progress` 字段使用 `SerializerMethodField` 实现实时计算
+- [x] C-003 `CTAIFramePreviewSerializer` 创建完成，包含所有必需字段
+- [x] C-004 `prefill` 字段使用 `JSONField`，支持读写
+- [x] C-005 创建批量任务时的 Request Serializer 验证规则正确（sources 非空，batch_size 范围）
+- [x] C-006 验证失败时返回明确的错误信息
 
 ---
 
@@ -208,14 +208,14 @@
 
 ## Checklist
 
-- [ ] C-001 `CTABulkFlowViewSet` 创建完成，继承 `ModelViewSet`
-- [ ] C-002 `get_queryset()` 按 `current_workspace` 过滤
-- [ ] C-003 `POST /batch/` 接口实现，创建任务并启动 Celery 任务
-- [ ] C-004 `GET /batch/` 接口实现，支持 status 过滤和 CursorPagination
-- [ ] C-005 `GET /batch/{id}/` 接口实现，返回任务详情和 progress
-- [ ] C-006 `name` 字段自动生成逻辑正确（格式：`"Batch Task - {created_at}"`）
-- [ ] C-007 Celery 任务正确启动（`bulk_generate_main_task.delay()`）
-- [ ] C-008 URL 路由配置正确
+- [x] C-001 `CTABulkFlowViewSet` 创建完成，继承 `ModelViewSet`
+- [x] C-002 `get_queryset()` 按 `current_workspace` 过滤
+- [x] C-003 `POST /batch/` 接口实现，创建任务并启动 Celery 任务
+- [x] C-004 `GET /batch/` 接口实现，支持 status 过滤和 CursorPagination
+- [x] C-005 `GET /batch/{id}/` 接口实现，返回任务详情和 progress
+- [x] C-006 `name` 字段自动生成逻辑正确（格式：`"Batch Task - {created_at}"`）
+- [x] C-007 Celery 任务正确启动（`bulk_generate_main_task.delay()`）
+- [x] C-008 URL 路由配置正确
 
 ---
 
@@ -304,13 +304,13 @@ GET /previews/?bulk_task_id=xxx&product_id=yyy&page_size=20
 
 ## Checklist
 
-- [ ] C-001 `CTAIFramePreviewViewSet` 创建完成，继承 `ModelViewSet`
-- [ ] C-002 `get_queryset()` 按 `current_workspace` 过滤
-- [ ] C-003 `GET /previews/` 接口实现，支持过滤和 CursorPagination
-- [ ] C-004 `GET /previews/{id}/` 接口实现，返回单个预览项详情
-- [ ] C-005 `PATCH /previews/{id}/` 接口实现，支持 prefill 局部或整块更新
-- [ ] C-006 过滤参数正确（bulk_task_id, product_id）
-- [ ] C-007 URL 路由配置正确
+- [x] C-001 `CTAIFramePreviewViewSet` 创建完成，继承 `ModelViewSet`
+- [x] C-002 `get_queryset()` 按 `current_workspace` 过滤
+- [x] C-003 `GET /previews/` 接口实现，支持过滤和 CursorPagination
+- [x] C-004 `GET /previews/{id}/` 接口实现，返回单个预览项详情
+- [x] C-005 `PATCH /previews/{id}/` 接口实现，支持 prefill 局部或整块更新
+- [x] C-006 过滤参数正确（bulk_task_id, product_id）
+- [x] C-007 URL 路由配置正确
 
 ---
 
@@ -361,12 +361,12 @@ GET /previews/?bulk_task_id=xxx&product_id=yyy&page_size=20
 
 ## Checklist
 
-- [ ] C-001 `bulk_generate_main_task` 创建完成，使用 `@app2.task` 装饰器
-- [ ] C-002 任务开始时更新 m2 状态为 `running`
-- [ ] C-003 使用 Celery `group` 并行处理多个 URL
-- [ ] C-004 使用 Celery `chord` 在所有完成后更新 m2 状态
-- [ ] C-005 错误处理正确：单个 URL 失败不影响其他 URL
-- [ ] C-006 m2 状态正确流转：pending → running → done/failed
+- [x] C-001 `bulk_generate_main_task` 创建完成，使用 `@app2.task` 装饰器
+- [x] C-002 任务开始时更新 m2 状态为 `running`
+- [x] C-003 使用 Celery `group` 并行处理多个 URL
+- [x] C-004 使用 Celery `chord` 在所有完成后更新 m2 状态
+- [x] C-005 错误处理正确：单个 URL 失败不影响其他 URL
+- [x] C-006 m2 状态正确流转：pending → running → done/failed
 
 ---
 
@@ -419,13 +419,13 @@ GET /previews/?bulk_task_id=xxx&product_id=yyy&page_size=20
 
 ## Checklist
 
-- [ ] C-001 `process_url_source_task` 创建完成，使用 `@app2.task` 装饰器
-- [ ] C-002 爬取或复用 `ECommerceProduct` 逻辑正确
-- [ ] C-003 获取 product 的图片列表（`image_urls`）
-- [ ] C-004 调用图片排序功能（T-010 的 `rank_product_images_by_relevance`）
-- [ ] C-005 根据 batch_size 确定源图列表（循环补足逻辑）
-- [ ] C-006 创建 batch_size 个 `CTAIFramePreview`（status=queued, workspace=task.workspace）
-- [ ] C-007 返回 m1 IDs 列表
+- [x] C-001 `process_url_source_task` 创建完成，使用 `@app2.task` 装饰器
+- [x] C-002 爬取或复用 `ECommerceProduct` 逻辑正确
+- [x] C-003 获取 product 的图片列表（`image_urls`）
+- [x] C-004 调用图片排序功能（`rank_product_images_by_relevance`）
+- [x] C-005 根据 batch_size 确定源图列表（循环补足逻辑）
+- [x] C-006 创建 batch_size 个 `CTAIFramePreview`（status=queued, workspace=task.workspace）
+- [x] C-007 返回 m1 IDs 列表
 
 ---
 
@@ -492,14 +492,14 @@ m1 创建后，启动生成任务：
 
 ## Checklist
 
-- [ ] C-001 `generate_single_preview_task` 创建完成，使用 `@app2.task(bind=True, rate_limit='20/m')` 装饰器
-- [ ] C-002 任务开始时更新 m1 状态为 `running`
-- [ ] C-003 使用 Celery `group` 并行执行背景图生成和 prefill 生成
-- [ ] C-004 等待两个子任务完成
-- [ ] C-005 合并结果到 prefill（original_background_url + generated_background_url + 文案等）
-- [ ] C-006 更新 m1 状态为 `done` 或 `failed`
-- [ ] C-007 失败时记录 `error_message`
-- [ ] C-008 错误处理正确，不影响其他任务
+- [x] C-001 `generate_single_preview_task` 创建完成，使用 `@app2.task(bind=True, rate_limit='20/m')` 装饰器
+- [x] C-002 任务开始时更新 m1 状态为 `running`
+- [x] C-003 使用 Celery `group` 并行执行背景图生成和 prefill 生成
+- [x] C-004 等待两个子任务完成
+- [x] C-005 合并结果到 prefill（original_background_url + generated_background_url + 文案等）
+- [x] C-006 更新 m1 状态为 `done` 或 `failed`
+- [x] C-007 失败时记录 `error_message`
+- [x] C-008 错误处理正确，不影响其他任务
 
 ---
 
@@ -547,11 +547,11 @@ m1 创建后，启动生成任务：
 
 ## Checklist
 
-- [ ] C-001 `generate_background_image_task` 创建完成，使用 `@app2.task` 装饰器
-- [ ] C-002 调用 `ctv_image_to_image` 生成背景图
-- [ ] C-003 输入参数正确（源图 URL + prompt）
-- [ ] C-004 返回生成的背景图 URL
-- [ ] C-005 失败时抛出异常
+- [x] C-001 `generate_background_image_task` 创建完成，使用 `@app2.task` 装饰器
+- [x] C-002 调用 `ctv_image_to_image` 生成背景图
+- [x] C-003 输入参数正确（源图 URL + prompt）
+- [x] C-004 返回生成的背景图 URL
+- [x] C-005 失败时抛出异常
 
 ---
 
@@ -598,11 +598,11 @@ m1 创建后，启动生成任务：
 
 ## Checklist
 
-- [ ] C-001 `generate_prefill_task` 创建完成，使用 `@app2.task` 装饰器
-- [ ] C-002 调用 `generate_creative_suggestions_v2_with_gemini` 生成 prefill
-- [ ] C-003 输入参数正确（product + 源图）
-- [ ] C-004 返回完整的 prefill JSON
-- [ ] C-005 失败时抛出异常
+- [x] C-001 `generate_prefill_task` 创建完成，使用 `@app2.task` 装饰器
+- [x] C-002 调用 `generate_creative_suggestions_v2_with_gemini` 生成 prefill
+- [x] C-003 输入参数正确（product + 源图）
+- [x] C-004 返回完整的 prefill JSON
+- [x] C-005 失败时抛出异常
 
 ---
 
@@ -649,11 +649,11 @@ URL 处理任务调用图片排序功能：
 
 ## Checklist
 
-- [ ] C-001 `rank_product_images_by_relevance` 函数创建完成
-- [ ] C-002 使用 CLIP 模型计算相关性分数
-- [ ] C-003 返回排序后的 URL 列表（从高到低相关度）
-- [ ] C-004 异步函数（使用 `async`）
-- [ ] C-005 处理图片加载失败的情况
+- [x] C-001 `rank_product_images_by_relevance` 函数创建完成
+- [x] C-002 使用 CLIP 模型计算相关性分数
+- [x] C-003 返回排序后的 URL 列表（从高到低相关度）
+- [x] C-004 异步函数（使用 `async`）
+- [x] C-005 处理图片加载失败的情况
 
 ---
 

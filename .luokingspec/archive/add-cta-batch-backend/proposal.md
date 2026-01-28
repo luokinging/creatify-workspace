@@ -154,6 +154,9 @@
 - **并发控制**：使用 Celery 的 rate_limit + queued 状态
 - **分页方式**：统一使用 CursorPagination
 - **数据存储**：prefill 使用 JSONField，progress 实时计算
+- **使用英文**: 注释、helper信息等都统一使用英文
+- **Docker调试**: 后端运行在docker，所有和后端相关的命令都要进入container内部执行，比如 （python manage.py
+  makemigration、单元测试等）
 
 #### 兼容性约束
 - **不修改 prod.tsx**：严格禁止修改线上版本
