@@ -12,8 +12,9 @@
 ### 第一步：读取并解析需求
 
 1. **读取任务文件**
-   - 读取 `.luokingspec/changes/<change-id>` 下的 `task.md` 和 `design.md` （如果存在）
-   - 如果文件不存在，提示用户先使用 `apply` 命令创建需求文档
+   - 读取 `.luokingspec/changes/<change-id>` 下的 `proposal.md`、`task.md` 和 `design.md`（如存在）
+   - `proposal.md` 提供变更的整体上下文（需求摘要、目标、范围、用户场景等），便于理解任务背景
+   - 若上述文件不存在，提示用户先使用 specify 命令创建需求文档
 
 2. **解析用户指定的需求**
    - 识别用户输入的需求编号（T-XXX）

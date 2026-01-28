@@ -9,7 +9,7 @@
 - 如果功能较大，需要拆解成多个子任务
 - 请参考 遵守`.project-rules` 目录下面的规则，目录下每个目录都是独立的规则目录，独立规则目录下都有 `index.md` 作为规则索引，你必须根据规则索引指引相关规则。
 - 用户给出的指引必须提供在 相关任务中
-- 在提案阶段不要编写任何代码。只创建设计文档（tasks.md、design.md）。实施在批准后的应用阶段进行。
+- 在提案阶段不要编写任何代码。只创建设计文档（proposal.md、tasks.md、design.md）。实施在批准后的应用阶段进行。
 
 ## 执行流程
 
@@ -86,7 +86,8 @@
 1. **审查项目和创建提案**
    - 检查在项目目录下是否存在 `.luokingspec` / `.luokingspec/changes` / `.luokingspec/archive` 如果不存在则使用 `mkdir` 命令创建
    - 审查 `.luokingspec/project.md`并检查相关代码或文档（例如，通过 `rg`/`ls`）以将提案基于当前行为；注意任何需要澄清的空白。
-   - 选择一个唯一的以动词开头的 `change-id`，并在 `.luokingspec/changes/<id>/` 下搭建、`tasks.md` 和 `design.md`（需要时）。
+   - 选择一个唯一的以动词开头的 `change-id`，并在 `.luokingspec/changes/<id>/` 下创建、`proposal.md`、`tasks.md` 和 `design.md`（需要时）。
+   - `proposal.md` 中编写整个需求的结构化描述，聚焦于整体等。
    - 当解决方案跨越多个系统、引入新模式或在提交规范之前需要权衡讨论时，在 `design.md` 中捕获架构推理。
 
 2. **处理链接和图片资源**
