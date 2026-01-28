@@ -30,9 +30,6 @@
 **前端路由:**
 - `/projects/:id` - 项目详情路由
 
-**其他:**
-- TanStack Router 官方文档：https://tanstack.com/router
-
 ## 注意点
 
 - 路由参数需要正确配置，支持项目 ID（UUID 格式）
