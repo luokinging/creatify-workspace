@@ -9,4 +9,5 @@
 ## 执行流程
 
 1. 确定要归档的变更 ID
-2. 使用 `mv` 命令把 `.luokingspec/changes/<change-id>` 目录 移动到 `.luokingspec/archive/<change-id>`
+2. 使用 `mv` 命令把 `.luokingspec/changes/<change-id>` 目录 移动到 `.luokingspec/archive/<num>.<change-id>`
+3. `<num>` 是序号，依次递增，比如  `001`
