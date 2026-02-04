@@ -1,9 +1,9 @@
 ## 启动程序
-celery -A web:celery_app worker
-celery -A web:celery2_app worker
+uv run celery -A web:celery_app worker
+uv run celery -A web:celery2_app worker
 
-python manage.py migrate
-python manage.py runserver 0.0.0.0:8000
+uv run manage.py migrate
+uv run manage.py runserver 0.0.0.0:8000
 
 ## 安装bun
 https://github.com/aklinker1/bunv#installation
