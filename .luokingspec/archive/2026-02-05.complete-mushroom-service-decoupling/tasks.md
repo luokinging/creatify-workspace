@@ -133,16 +133,16 @@ import { useMushroomController } from '@/feature/mushroom/context/mushroom-contr
 
 ## Checklist
 
-- [ ] C-001 从 Context 中获取 MushroomController 和相关 Manager
-- [ ] C-002 移除对 AuthService 的依赖（import 和使用）
-- [ ] C-003 移除对 UserService 的依赖（import 和使用）
-- [ ] C-004 使用 mushroomUserManager.store 替代 userService.storeManager.store
-- [ ] C-005 使用 mushroomAuthManager.checkLogin() 替代 authService.checkLogin()
-- [ ] C-006 使用 mushroomAuthManager.signOut() 替代 authService.userSignOut()
-- [ ] C-007 正确处理用户信息的显示（头像、昵称、邮箱等）
-- [ ] C-008 正确处理未登录状态的显示
-- [ ] C-009 组件的 TypeScript 类型正确
-- [ ] C-010 所有登录/登出功能正常工作
+- [x] C-001 从 Context 中获取 MushroomController 和相关 Manager
+- [x] C-002 移除对 AuthService 的依赖（import 和使用）
+- [x] C-003 移除对 UserService 的依赖（import 和使用）
+- [x] C-004 使用 mushroomUserManager.store 替代 userService.storeManager.store
+- [x] C-005 使用 mushroomAuthManager.checkLogin() 替代 authService.checkLogin()
+- [x] C-006 使用 mushroomAuthManager.signOut() 替代 authService.userSignOut()
+- [x] C-007 正确处理用户信息的显示（头像、昵称、邮箱等）
+- [x] C-008 正确处理未登录状态的显示
+- [x] C-009 组件的 TypeScript 类型正确
+- [x] C-010 所有登录/登出功能正常工作
 
 ---
 
@@ -258,12 +258,12 @@ import { getGlobalMushroomController } from '@/feature/mushroom/manager/event/mu
 
 ## Checklist
 
-- [ ] C-001 使用 getGlobalMushroomController 获取 MushroomController
-- [ ] C-002 使用 mushroomAuthManager.checkLogin() 替代 authService.checkLogin()
-- [ ] C-003 处理 MushroomController 不可用的情况
-- [ ] C-004 登录成功后正确重新加载页面
-- [ ] C-005 保持现有的错误处理逻辑
-- [ ] C-006 组件的 TypeScript 类型正确
+- [x] C-001 使用 getGlobalMushroomController 获取 MushroomController
+- [x] C-002 使用 mushroomAuthManager.checkLogin() 替代 authService.checkLogin()
+- [x] C-003 处理 MushroomController 不可用的情况
+- [x] C-004 登录成功后正确重新加载页面
+- [x] C-005 保持现有的错误处理逻辑
+- [x] C-006 组件的 TypeScript 类型正确
 
 ---
 
@@ -364,12 +364,12 @@ const [vc] = useState(() => new ProjectDashboardViewController());
 
 ## Checklist
 
-- [ ] C-001 确认 AuthService 在 MushroomProjectManager 中未被使用
-- [ ] C-002 移除 MushroomProjectManager 的 authService 构造函数参数
-- [ ] C-003 移除 ProjectDashboardViewController 的 authService 构造函数参数
-- [ ] C-004 更新 projects/page/index.tsx 中的创建代码
-- [ ] C-005 移除不必要的 import
-- [ ] C-006 所有现有功能正常工作
+- [x] C-001 确认 AuthService 在 MushroomProjectManager 中未被使用
+- [x] C-002 移除 MushroomProjectManager 的 authService 构造函数参数
+- [x] C-003 移除 ProjectDashboardViewController 的 authService 构造函数参数
+- [x] C-004 更新 projects/page/index.tsx 中的创建代码
+- [x] C-005 移除不必要的 import
+- [x] C-006 所有现有功能正常工作
 
 ---
 
@@ -452,9 +452,9 @@ export function InvitePage({ code }: InvitePageProps) {
 
 ## Checklist
 
-- [ ] C-001 添加文件顶部注释说明设计决策
-- [ ] C-002 添加相关代码注释
-- [ ] C-003 更新项目文档说明这个特殊情况
+- [x] C-001 添加文件顶部注释说明设计决策
+- [x] C-002 添加相关代码注释
+- [x] C-003 更新项目文档说明这个特殊情况
 
 ---
 
@@ -546,13 +546,13 @@ import { useMushroomController } from '@/feature/mushroom/context/mushroom-contr
 
 ## Checklist
 
-- [ ] C-001 从 Context 中获取 MushroomController 和 MushroomUserManager
-- [ ] C-002 移除对 UserService 的依赖（import 和使用）
-- [ ] C-003 使用 mushroomUserManager.waitUserInfoLoaded() 替代 userService.waitUserInfoLoaded()
-- [ ] C-004 使用 mushroomUserManager.store.getState().user 替代 userService.storeManager.store.getState().user
-- [ ] C-005 保持现有的权限检查逻辑不变
-- [ ] C-006 所有功能正常工作
-- [ ] C-007 组件的 TypeScript 类型正确
+- [x] C-001 从 Context 中获取 MushroomController 和 MushroomUserManager
+- [x] C-002 移除对 UserService 的依赖（import 和使用）
+- [x] C-003 使用 mushroomUserManager.waitUserInfoLoaded() 替代 userService.waitUserInfoLoaded()
+- [x] C-004 使用 mushroomUserManager.store.getState().user 替代 userService.storeManager.store.getState().user
+- [x] C-005 保持现有的权限检查逻辑不变
+- [x] C-006 所有功能正常工作
+- [x] C-007 组件的 TypeScript 类型正确
 
 ---
 
@@ -637,13 +637,13 @@ import { useMushroomController } from '@/feature/mushroom/context/mushroom-contr
 
 ## Checklist
 
-- [ ] C-001 从 Context 中获取 MushroomController 和 MushroomUserManager
-- [ ] C-002 移除对 UserService 的依赖（import 和使用）
-- [ ] C-003 使用 mushroomUserManager.store 替代 userService.storeManager.store
-- [ ] C-004 保持现有的权限信息获取逻辑
-- [ ] C-005 保持现有的访客信息处理逻辑
-- [ ] C-006 所有功能正常工作
-- [ ] C-007 组件的 TypeScript 类型正确
+- [x] C-001 从 Context 中获取 MushroomController 和 MushroomUserManager
+- [x] C-002 移除对 UserService 的依赖（import 和使用）
+- [x] C-003 使用 mushroomUserManager.store 替代 userService.storeManager.store
+- [x] C-004 保持现有的权限信息获取逻辑
+- [x] C-005 保持现有的访客信息处理逻辑
+- [x] C-006 所有功能正常工作
+- [x] C-007 组件的 TypeScript 类型正确
 
 ---
 
@@ -819,9 +819,9 @@ a separate permission system for Mushroom.
 
 ## Checklist
 
-- [ ] C-001 更新 MushroomAuthManager 注释
-- [ ] C-002 更新 MushroomUserManager 注释
-- [ ] C-003 更新 MushroomController 注释
-- [ ] C-004 创建 SERVICE_DECOUPLING.md 文档
-- [ ] C-005 更新相关项目规则文档
-- [ ] C-006 文档清晰、准确、易懂
+- [x] C-001 更新 MushroomAuthManager 注释
+- [x] C-002 更新 MushroomUserManager 注释
+- [x] C-003 更新 MushroomController 注释
+- [x] C-004 创建 SERVICE_DECOUPLING.md 文档
+- [x] C-005 更新相关项目规则文档
+- [x] C-006 文档清晰、准确、易懂
