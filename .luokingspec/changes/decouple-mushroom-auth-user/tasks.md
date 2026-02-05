@@ -556,12 +556,12 @@ export interface MushroomBootstrapProps {
 
 ## Checklist
 
-- [ ] C-001 移除对 AuthService 的依赖（import 和使用）
-- [ ] C-002 使用 mushroomController.mushroomAuthManager.checkLogin() 替代 authService.checkLogin()
-- [ ] C-003 登录成功后的逻辑（邀请接受、权限获取）保持不变
-- [ ] C-004 错误处理和加载状态正确
-- [ ] C-005 skipLoginCheck 逻辑正常工作
-- [ ] C-006 组件的 TypeScript 类型正确
+- [x] C-001 移除对 AuthService 的依赖（import 和使用）
+- [x] C-002 使用 mushroomController.mushroomAuthManager.checkLogin() 替代 authService.checkLogin()
+- [x] C-003 登录成功后的逻辑（邀请接受、权限获取）保持不变
+- [x] C-004 错误处理和加载状态正确
+- [x] C-005 skipLoginCheck 逻辑正常工作
+- [x] C-006 组件的 TypeScript 类型正确
 
 ---
 
@@ -715,14 +715,14 @@ const afterLogin = async () => {
 
 ## Checklist
 
-- [ ] C-001 从 Context 中获取 MushroomController 和 MushroomAuthManager
-- [ ] C-002 移除对 AuthService 的依赖（import 和使用）
-- [ ] C-003 密码登录使用 mushroomAuthManager.loginWithPassword()
-- [ ] C-004 Google 登录的 afterLogin 回调正确处理
-- [ ] C-005 SSO 登录的 afterLogin 回调正确处理
-- [ ] C-006 所有登录方式的成功回调逻辑一致
-- [ ] C-007 登录成功后的路由刷新和弹窗关闭正确
-- [ ] C-008 组件的 TypeScript 类型正确
+- [x] C-001 从 Context 中获取 MushroomController 和 MushroomAuthManager
+- [x] C-002 移除对 AuthService 的依赖（import 和使用）
+- [x] C-003 密码登录使用 mushroomAuthManager.loginWithPassword()
+- [x] C-004 Google 登录的 afterLogin 回调正确处理
+- [x] C-005 SSO 登录的 afterLogin 回调正确处理
+- [x] C-006 所有登录方式的成功回调逻辑一致
+- [x] C-007 登录成功后的路由刷新和弹窗关闭正确
+- [x] C-008 组件的 TypeScript 类型正确
 
 ---
 
@@ -845,13 +845,13 @@ const GoogleOneTapDisabledRouteList: RouteValue[] = ['/preview', '/mushroom/'];
 
 ## Checklist
 
-- [ ] C-001 LoginManager 添加 _isMushroomRoute() 辅助方法
-- [ ] C-002 checkPromptGoogleOneTap() 方法中添加 Mushroom 路由判断
-- [ ] C-003 在 Mushroom 路由下跳过 Google One Tap 自动唤起
-- [ ] C-004 非 Mushroom 路由的 Google One Tap 唤起不受影响
-- [ ] C-005 正确处理 SSR 情况（window 不存在）
-- [ ] C-006 方法可以被测试方便地 mock
-- [ ] C-007 代码风格符合项目规范
+- [x] C-001 LoginManager 添加 _isMushroomRoute() 辅助方法
+- [x] C-002 checkPromptGoogleOneTap() 方法中添加 Mushroom 路由判断
+- [x] C-003 在 Mushroom 路由下跳过 Google One Tap 自动唤起
+- [x] C-004 非 Mushroom 路由的 Google One Tap 唤起不受影响
+- [x] C-005 正确处理 SSR 情况（window 不存在）
+- [x] C-006 方法可以被测试方便地 mock
+- [x] C-007 代码风格符合项目规范
 
 ---
 
@@ -937,8 +937,8 @@ export class AuthService implements IAuthService {
 
 ## Checklist
 
-- [ ] C-001 更新 isMushroomRoute 方法的 JSDoc 注释
-- [ ] C-002 注释说明方法的调用方（AuthService、LoginManager）
-- [ ] C-003 注释说明方法的返回值和判断逻辑
-- [ ] C-004 （可选）在 AuthService 类顶部添加 Mushroom 路由处理说明
-- [ ] C-005 注释清晰、准确、易懂
+- [x] C-001 更新 isMushroomRoute 方法的 JSDoc 注释
+- [x] C-002 注释说明方法的调用方（AuthService、LoginManager）
+- [x] C-003 注释说明方法的返回值和判断逻辑
+- [x] C-004 （可选）在 AuthService 类顶部添加 Mushroom 路由处理说明（跳过，保持代码风格一致）
+- [x] C-005 注释清晰、准确、易懂
