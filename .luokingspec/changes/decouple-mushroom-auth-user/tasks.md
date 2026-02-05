@@ -137,19 +137,19 @@ MushroomAuthManager 负责管理登录弹窗的显示逻辑：
 
 ## Checklist
 
-- [ ] C-001 MushroomAuthManager 文件创建完成，包含基本结构
-- [ ] C-002 实现 `checkLogin()` 方法，支持显示登录弹窗
-- [ ] C-003 实现 `checkPromptGoogleOneTap()` 方法，支持 Google One Tap 自动唤起
-- [ ] C-004 实现 `loginWithPassword()` 方法，支持密码登录
-- [ ] C-005 实现 `loginWithGoogle()` 方法，支持 Google 登录
-- [ ] C-006 实现 `loginWithGoogleOneTap()` 方法，支持 Google One Tap 登录
-- [ ] C-007 实现 `signOut()` 方法，支持登出并跳转
-- [ ] C-008 实现 `bootstrapAuth()` 方法，支持初始化认证状态
-- [ ] C-009 状态管理使用 Zustand store，遵循 Manager 模式规范
-- [ ] C-010 实现 `bootstrap()` 和 `dispose()` 生命周期方法
-- [ ] C-011 正确处理登录成功后的状态刷新和通知
-- [ ] C-012 正确处理登出后的路由跳转
-- [ ] C-013 Google One Tap 只在 Mushroom 路由下生效
+- [x] C-001 MushroomAuthManager 文件创建完成，包含基本结构
+- [x] C-002 实现 `checkLogin()` 方法，支持显示登录弹窗
+- [x] C-003 实现 `checkPromptGoogleOneTap()` 方法，支持 Google One Tap 自动唤起
+- [x] C-004 实现 `loginWithPassword()` 方法，支持密码登录
+- [x] C-005 实现 `loginWithGoogle()` 方法，支持 Google 登录
+- [x] C-006 实现 `loginWithGoogleOneTap()` 方法，支持 Google One Tap 登录
+- [x] C-007 实现 `signOut()` 方法，支持登出并跳转
+- [x] C-008 实现 `bootstrapAuth()` 方法，支持初始化认证状态
+- [x] C-009 状态管理使用 Zustand store，遵循 Manager 模式规范
+- [x] C-010 实现 `bootstrap()` 和 `dispose()` 生命周期方法
+- [x] C-011 正确处理登录成功后的状态刷新和通知
+- [x] C-012 正确处理登出后的路由跳转
+- [x] C-013 Google One Tap 只在 Mushroom 路由下生效
 
 ---
 
@@ -264,15 +264,15 @@ import type { UserType } from '@/feature/account/type';
 
 ## Checklist
 
-- [ ] C-001 MushroomUserManager 文件创建完成，包含基本结构
-- [ ] C-002 实现 `refreshUser()` 方法，支持刷新用户信息
-- [ ] C-003 实现 `setUserInfo()` 方法，支持设置用户信息
-- [ ] C-004 实现 `resetUser()` 方法，支持重置用户信息
-- [ ] C-005 实现 `waitUserInfoLoaded()` 方法，支持等待用户信息加载
-- [ ] C-006 状态管理使用 Zustand store，遵循 Manager 模式规范
-- [ ] C-007 实现 `bootstrap()` 和 `dispose()` 生命周期方法
-- [ ] C-008 正确处理用户信息变化时的订阅通知
-- [ ] C-009 正确处理用户信息的初始化和重置
+- [x] C-001 MushroomUserManager 文件创建完成，包含基本结构
+- [x] C-002 实现 `refreshUser()` 方法，支持刷新用户信息
+- [x] C-003 实现 `setUserInfo()` 方法，支持设置用户信息
+- [x] C-004 实现 `resetUser()` 方法，支持重置用户信息
+- [x] C-005 实现 `waitUserInfoLoaded()` 方法，支持等待用户信息加载
+- [x] C-006 状态管理使用 Zustand store，遵循 Manager 模式规范
+- [x] C-007 实现 `bootstrap()` 和 `dispose()` 生命周期方法
+- [x] C-008 正确处理用户信息变化时的订阅通知
+- [x] C-009 正确处理用户信息的初始化和重置
 
 ---
 
@@ -429,13 +429,13 @@ dispose() {
 
 ## Checklist
 
-- [ ] C-001 MushroomController 正确导入新的 Manager
-- [ ] C-002 构造函数中创建 MushroomAuthManager 和 MushroomUserManager 实例
-- [ ] C-003 combinedStore 包含新 Manager 的 store
-- [ ] C-004 bootstrap() 方法中调用新 Manager 的 bootstrap 方法
-- [ ] C-005 dispose() 方法中调用新 Manager 的 dispose 方法
-- [ ] C-006 新 Manager 的初始化顺序正确（UserManager 在 AuthManager 之后）
-- [ ] C-007 新 Manager 作为只读属性暴露给外部使用
+- [x] C-001 MushroomController 正确导入新的 Manager
+- [x] C-002 构造函数中创建 MushroomAuthManager 和 MushroomUserManager 实例
+- [x] C-003 combinedStore 包含新 Manager 的 store
+- [x] C-004 bootstrap() 方法中调用新 Manager 的 bootstrap 方法
+- [x] C-005 dispose() 方法中调用新 Manager 的 dispose 方法
+- [x] C-006 新 Manager 的初始化顺序正确（UserManager 在 AuthManager 之后）
+- [x] C-007 新 Manager 作为只读属性暴露给外部使用
 
 ---
 
