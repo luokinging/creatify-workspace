@@ -893,14 +893,14 @@ parent = models.ForeignKey(
 
 ## Checklist
 
-- [ ] C-001 `parent` 字段已添加到 ProjectFolder 模型，migration 已运行
-- [ ] C-002 List API 不带 `parent` 参数时返回所有文件夹（向后兼容）
-- [ ] C-003 List API `parent=""` 返回根文件夹
-- [ ] C-004 List API `parent=<uuid>` 返回指定文件夹的直接子文件夹
-- [ ] C-005 Create API 支持可选 `parent` 字段
-- [ ] C-006 Serializer 在 List 响应中包含 `parent` 字段
-- [ ] C-007 现有的 search、ordering、pagination、workspace/brand 过滤正常工作
-- [ ] C-008 ruff lint 通过
+- [x] C-001 `parent` 字段已添加到 ProjectFolder 模型，migration 已运行
+- [x] C-002 List API 不带 `parent` 参数时返回所有文件夹（向后兼容）
+- [x] C-003 List API `parent=""` 返回根文件夹
+- [x] C-004 List API `parent=<uuid>` 返回指定文件夹的直接子文件夹
+- [x] C-005 Create API 支持可选 `parent` 字段
+- [x] C-006 Serializer 在 List 响应中包含 `parent` 字段
+- [x] C-007 现有的 search、ordering、pagination、workspace/brand 过滤正常工作
+- [x] C-008 ruff lint 通过
 
 ---
 
@@ -993,16 +993,16 @@ parent = models.ForeignKey(
 
 ## Checklist
 
-- [ ] C-001 GET detail 响应包含 `ancestors` 字段，格式为 `[{id, name}]`
-- [ ] C-002 根文件夹的 ancestors 为空数组
-- [ ] C-003 ancestors 排序正确（从根到直接父级）
-- [ ] C-004 PATCH update 支持修改 parent（移动文件夹）
-- [ ] C-005 移动时循环引用校验正确工作
-- [ ] C-006 不能移动文件夹到自身下
-- [ ] C-007 POST bulk_move 端点创建完成
-- [ ] C-008 bulk_move 循环引用校验对每个文件夹生效
-- [ ] C-009 bulk_move 是原子操作
-- [ ] C-010 ruff lint 通过
+- [x] C-001 GET detail 响应包含 `ancestors` 字段，格式为 `[{id, name}]`
+- [x] C-002 根文件夹的 ancestors 为空数组
+- [x] C-003 ancestors 排序正确（从根到直接父级）
+- [x] C-004 PATCH update 支持修改 parent（移动文件夹）
+- [x] C-005 移动时循环引用校验正确工作
+- [x] C-006 不能移动文件夹到自身下
+- [x] C-007 POST bulk_move 端点创建完成
+- [x] C-008 bulk_move 循环引用校验对每个文件夹生效
+- [x] C-009 bulk_move 是原子操作
+- [x] C-010 ruff lint 通过
 
 ---
 
@@ -1079,15 +1079,15 @@ parent = models.ForeignKey(
 
 ## Checklist
 
-- [ ] C-001 Model 测试覆盖 parent FK 和 CASCADE
-- [ ] C-002 List API 测试覆盖三种 parent 参数场景
-- [ ] C-003 Create API 测试覆盖 with/without parent
-- [ ] C-004 Detail API 测试覆盖 ancestors 字段
-- [ ] C-005 Move 测试覆盖正常移动和循环引用拒绝
-- [ ] C-006 Bulk Move 测试覆盖批量移动和原子性
-- [ ] C-007 向后兼容测试通过（不传 parent 时行为不变）
-- [ ] C-008 所有测试在 docker 内运行通过
-- [ ] C-009 ruff lint 通过
+- [x] C-001 Model 测试覆盖 parent FK 和 CASCADE
+- [x] C-002 List API 测试覆盖三种 parent 参数场景
+- [x] C-003 Create API 测试覆盖 with/without parent
+- [x] C-004 Detail API 测试覆盖 ancestors 字段
+- [x] C-005 Move 测试覆盖正常移动和循环引用拒绝
+- [x] C-006 Bulk Move 测试覆盖批量移动和原子性
+- [x] C-007 向后兼容测试通过（不传 parent 时行为不变）
+- [x] C-008 所有测试在 docker 内运行通过
+- [x] C-009 ruff lint 通过
 
 ---
 
@@ -1196,9 +1196,9 @@ parent = models.ForeignKey(
 
 ## Checklist
 
-- [ ] C-001 所有 mock 文件和 mock 引用已移除
-- [ ] C-002 所有 API 调用已连接到真实后端
-- [ ] C-003 API contract 验证通过（请求参数和响应格式匹配）
+- [x] C-001 所有 mock 文件和 mock 引用已移除
+- [x] C-002 所有 API 调用已连接到真实后端
+- [x] C-003 API contract 验证通过（请求参数和响应格式匹配）
 - [ ] C-004 文件夹层级导航正常（双击进入、面包屑返回）
 - [ ] C-005 文件夹 CRUD 正常工作
 - [ ] C-006 移动文件夹（单个和批量）正常工作
@@ -1206,5 +1206,5 @@ parent = models.ForeignKey(
 - [ ] C-008 直接 URL 访问子文件夹时面包屑正确
 - [ ] C-009 Legacy 视图完全不受影响
 - [ ] C-010 Folder-detail 页面完全不受影响
-- [ ] C-011 前端 `bun precommit` 通过
+- [x] C-011 前端 `bun precommit` 通过
 - [ ] C-012 后端 ruff lint 和 pytest 通过
